@@ -1,6 +1,6 @@
 <?php
 
-require_once("./models/conection.php");
+require_once("conections.php");
 
 class Usuario extends Conectar
 {
@@ -30,6 +30,7 @@ class Usuario extends Conectar
                 $_SESSION['usu_id'] = $resultado['id'];
                 $_SESSION['usu_nom'] = $resultado['nombre'];
                 $_SESSION['usu_email'] = $resultado['correo'];
+                $_SESSION['cant_likes'] = $resultado['likes'];
 
                 return '1';
             } else {
@@ -38,14 +39,41 @@ class Usuario extends Conectar
         }
     }
 
-    public function getUser($id_usuario)
+    public function getUser($id)
+    {
+
+        $conectar = parent::conexion();
+        parent::set_names();
+
+
+        $sql = "SELECT * FROM usuarios WHERE id =  $id";
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+        return  $resultado;
+    }
+
+
+    public function getLikes($id)
     {
         $conectar = parent::conexion();
         parent::set_names();
 
-        $sql = "SELECT * FROM usuarios WHERE id = $id_usuario";
+        $sql = "SELECT likes FROM usuarios WHERE id = $id";
         $sql = $conectar->prepare($sql);
         $sql->execute();
-        return $resultado = $sql->fetchAll();
+        $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+
+        return $resultado;
+    }
+
+    public function updateLikes($id, $likes)
+    {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "UPDATE `usuarios` SET `likes`='$likes' WHERE `id` ='$id' ";
+
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
     }
 }

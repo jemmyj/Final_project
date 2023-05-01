@@ -12068,7 +12068,6 @@ a.text-hover-dark:focus, a.text-hover-dark:hover {
 */
 .swiper-slide {
   cursor: pointer;
-  background: #000;
 }
 
 .swiper-slide img {

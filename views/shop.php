@@ -1,22 +1,40 @@
-<!--  Modal -->
 <!DOCTYPE html>
 <html lang="es">
 
 
-<?php include 'config/MainHead.php'; ?>
+<?php session_start();
+include '../config/MainHead.php';
+?>
 <?php // Incluir el archivo Productos.php
-require_once './models/Productos.php';
-
+require_once '../models/Productos.php';
+require_once '../models/Usuario.php';
 // Crear una instancia de la clase Productos
 $productos = new Productos();
 
 // Obtener los datos de los productos
 $resultado = $productos->listarProductos();
+
+
+// Definir la cantidad de elementos por página
+$elementos_por_pagina = 10;
+
+// Calcular el número total de páginas
+$total_registros = $productos->pagination()[0]['total'];
+//número total por páginas 
+$total_paginas = ceil($total_registros / $elementos_por_pagina);
+// página actual,
+$pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+// offset 
+$offset = ($pagina_actual - 1) * $elementos_por_pagina;
+//obtener resultado
+$productos = $productos->limit_produc($offset, $elementos_por_pagina);
+
+
 ?>
 
 <body>
     <div class="page-holder">
-        <?php include 'config/MainHeader.php'; ?>
+        <?php include '../config/MainHeader.php'; ?>
         <div class="modal fade" id="productView" tabindex="-1">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content overflow-hidden border-0">
@@ -66,7 +84,7 @@ $resultado = $productos->listarProductos();
                         <div class="col-lg-6 text-lg-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
-                                    <li class="breadcrumb-item"><a class="text-dark" href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a class="text-dark" href="index.php">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">shop</li>
                                 </ol>
                             </nav>
@@ -187,11 +205,11 @@ $resultado = $productos->listarProductos();
                                             <div class="mb-3 position-relative">
                                                 <div class="badge text-white bg-<?php echo $producto['categoria']; ?>"></div>
                                                 <a class="d-block" href="detalle_producto.php?id=<?php echo $producto['id']; ?>">
-                                                    <img class="img-fluid w-100" src="<?php echo $producto['imagen']; ?>" alt="<?php echo $producto['nombre']; ?>">
+                                                    <img class="img-fluid w-100" src="../public/img/<?php echo $producto['imagen']; ?>" alt="<?php echo $producto['nombre']; ?>">
                                                 </a>
                                                 <div class="product-overlay">
                                                     <ul class="mb-0 list-inline">
-                                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#!"><i class="far fa-heart"></i></a></li>
+                                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark btn-add-favorites" data-product-id="<?php echo $producto['id']; ?> "><i class="far fa-heart" id="btn-favoritos"></i></a></li>
                                                         <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="agregar_carrito.php?id=<?php echo $producto['id']; ?>">Agregar al carrito</a></li>
                                                         <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="detalle_producto.php?id=<?php echo $producto['id']; ?>"><i class="fas fa-expand"></i></a></li>
                                                     </ul>
@@ -206,24 +224,39 @@ $resultado = $productos->listarProductos();
 
 
                             <!-- PAGINATION-->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center justify-content-lg-end">
-                                    <li class="page-item mx-1"><a class="page-link" href="#!" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                    <li class="page-item mx-1 active"><a class="page-link" href="#!">1</a></li>
-                                    <li class="page-item mx-1"><a class="page-link" href="#!">2</a></li>
-                                    <li class="page-item mx-1"><a class="page-link" href="#!">3</a></li>
-                                    <li class="page-item ms-1"><a class="page-link" href="#!" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                                </ul>
-                            </nav>
+                            <?php
+                            echo '<nav aria-label="Page navigation example">';
+                            echo '<ul class="pagination justify-content-center justify-content-lg-end">';
+
+                            if ($pagina_actual > 1) {
+                                echo '<li class="page-item mx-1"><a class="page-link" href="?pagina=' . ($pagina_actual - 1) . '" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
+                            }
+
+                            for ($i = 1; $i <= $total_paginas; $i++) {
+                                if ($i == $pagina_actual) {
+                                    echo '<li class="page-item mx-1 active"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+                                } else {
+                                    echo '<li class="page-item mx-1"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+                                }
+                            }
+
+                            if ($pagina_actual < $total_paginas) {
+                                echo '<li class="page-item ms-1"><a class="page-link" href="?pagina=' . ($pagina_actual + 1) . '" aria-label="Next"><span aria-hidden="true">»</span></a></li>';
+                            }
+
+                            echo '</ul>';
+                            echo '</nav>';
+                            ?>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
 
-        <?php include 'config/MainFooter.php'; ?>
+        <?php include '../config/MainFooter.php'; ?>
         <!-- JS -->
-        <?php include 'config/MainJs.php'; ?>
+        <?php include '../config/MainJs.php'; ?>
+        <script src="../index.js"></script>
         <script>
             var range = document.getElementById('range');
             noUiSlider.create(range, {

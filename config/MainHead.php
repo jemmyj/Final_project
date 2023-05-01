@@ -27,4 +27,5 @@
     <link rel="stylesheet" href="../public/css/custom.css">
     <!-- Favicon-->
     <link rel="icon" href="../public/icons/sneaker.ico">
+
 </head>

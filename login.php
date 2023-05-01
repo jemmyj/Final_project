@@ -1,7 +1,9 @@
+<!DOCTYPE html>
+<html lang="es">
 <?php
 
-require_once("./models/conection.php");
-require_once("./models/Usuario.php");
+
+require_once("models/Usuario.php");
 
 
 
@@ -20,17 +22,10 @@ if (isset($_POST["inicio_sesion"])) {
 }
 ?>
 
-
-
-
-<!DOCTYPE html>
-<html lang="es">
-
 <?php include 'config/MainHead.php'; ?>
 <style>
     body {
         background-color: #f8f8f8;
-        font-family: Arial, sans-serif;
         font-size: 16px;
         line-height: 1.5;
         margin: 0;
@@ -114,7 +109,30 @@ if (isset($_POST["inicio_sesion"])) {
         <?php include 'config/MainFooter.php'; ?>
         <!-- JS -->
         <?php include 'config/MainJs.php'; ?>
+        <script>
+            // ------------------------------------------------------- //
+            //   Inject SVG Sprite - 
+            //   see more here 
+            //   https://css-tricks.com/ajaxing-svg-sprite/
+            // ------------------------------------------------------ //
+            function injectSvgSprite(path) {
 
+                var ajax = new XMLHttpRequest();
+                ajax.open("GET", path, true);
+                ajax.send();
+                ajax.onload = function(e) {
+                    var div = document.createElement("div");
+                    div.className = 'd-none';
+                    div.innerHTML = ajax.responseText;
+                    document.body.insertBefore(div, document.body.childNodes[0]);
+                }
+            }
+            // this is set to BootstrapTemple website as you cannot 
+            // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+            // while using file:// protocol
+            // pls don't forget to change to your domain :)
+            injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
+        </script>
         <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>

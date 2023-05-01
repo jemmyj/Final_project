@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 22, 2023 at 04:52 PM
+-- Generation Time: May 01, 2023 at 01:22 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -89,8 +89,9 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `imagen`, `categoria`, `creado_en`, `actualizado_en`) VALUES
-(1, 'Nike Aie Force 1', 'El fulgor sigue vivo en las Nike Air Force 1 \'07, un modelo original de baloncesto que introduce un nuevo giro a sus ya característicos revestimientos con costuras duraderas, sus acabados impecables y la cantidad perfecta de reflectante.', '120.00', 'nike4.png', 'nike', '2023-04-08 12:22:19', '2023-04-08 12:22:19'),
-(2, 'Adidas', 'El fulgor sigue vivo con un diseño de baloncesto original. Con un diseño que combina la comodidad para la cancha con un estilo urbano, estas zapatillas dan un nuevo giro a su ya característico estilo, su confección inspirada en los 80, sus detalles llamativos y su estilo impecable.', '130.00', 'nike', NULL, '2023-04-08 12:23:03', '2023-04-08 12:23:03');
+(1, 'Nike Aie Force 1', 'El fulgor sigue vivo en las Nike Air Force 1 \'07, un modelo original de baloncesto que introduce un nuevo giro a sus ya característicos revestimientos con costuras duraderas, sus acabados impecables y la cantidad perfecta de reflectante.', '120.00', './public/img/nike4.png', 'nike', '2023-04-08 12:22:19', '2023-04-22 15:06:57'),
+(2, 'Adidas', 'El fulgor sigue vivo con un diseño de baloncesto original. Con un diseño que combina la comodidad para la cancha con un estilo urbano, estas zapatillas dan un nuevo giro a su ya característico estilo, su confección inspirada en los 80, sus detalles llamativos y su estilo impecable.', '130.00', './public/img/adidas1.png', NULL, '2023-04-08 12:23:03', '2023-04-23 12:27:26'),
+(3, 'Adidas', 'Hola', '130.00', './public/img/jordan3.png', 'asdasd', '2023-04-23 17:56:05', '2023-04-23 17:56:40');
 
 -- --------------------------------------------------------
 
@@ -104,15 +105,16 @@ CREATE TABLE `usuarios` (
   `correo` varchar(255) DEFAULT NULL,
   `contrasena` varchar(255) DEFAULT NULL,
   `creado_en` timestamp NOT NULL DEFAULT current_timestamp(),
-  `actualizado_en` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `actualizado_en` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `likes` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `creado_en`, `actualizado_en`) VALUES
-(1, 'Jemmy', 'jemmyjin30@gmail.com', 'Jinwoaini123', '2023-04-06 13:09:30', '2023-04-08 11:21:03');
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `creado_en`, `actualizado_en`, `likes`) VALUES
+(1, 'Jemmy', 'jemmyjin30@gmail.com', 'Jinwoaini123', '2023-04-06 13:09:30', '2023-05-01 11:13:55', 16);
 
 -- --------------------------------------------------------
 
@@ -198,7 +200,7 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT for table `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
