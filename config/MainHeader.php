@@ -36,7 +36,7 @@ $usuario = new Usuario;
                     <?php if ($logged_in) : ?>
                         <li class="nav-item"><a class="nav-link" href="../views/cart.php"> <i class="fas fa-dolly-flatbed me-1 text-gray"></i>Cart<small class="text-gray fw-normal">(0)</small></a></li>
                         <input type="hidden" id="valor_likes" value="<?php echo $usuario->getLikes($_SESSION["usu_id"])['likes']  ?>">
-                        <li class="nav-item"><a class="nav-link" href="#!"> <i class="far fa-heart me-1"></i>Favorites<small id="num-favoritos" class="text-gray fw-normal"><?php echo '( ' . $usuario->getLikes($_SESSION["usu_id"])['likes'] . ' )'  ?></small></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!"> <i class="far fa-heart me-1 text-gray"></i>Favorites<small id="num-favoritos" class="text-gray fw-normal"><?php echo '( ' . $usuario->getLikes($_SESSION["usu_id"])['likes'] . ' )'  ?></small></a></li>
                         <!-- <li class="nav-item"><a class="nav-link" href="perfil.php"> <i class="fas fa-user me-1 text-gray fw-normal"></i>My account</a></li> -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

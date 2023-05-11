@@ -26,6 +26,17 @@ class Productos extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
+    public function agregarCarrito($usuario_id, $producto_id, $cantidad)
+    {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "INSERT INTO `carritos_de_compras`( `usuario_id`, `producto_id`, `cantidad`, `creado_en`) VALUES ('$usuario_id','$producto_id','$cantidad',now())";
+
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $resultado = $sql->fetchAll();
+    }
+
 
     public function detalle_product($id)
     {

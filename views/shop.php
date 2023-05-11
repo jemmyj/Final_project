@@ -210,7 +210,7 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                                                 <div class="product-overlay">
                                                     <ul class="mb-0 list-inline">
                                                         <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark btn-add-favorites" data-product-id="<?php echo $producto['id']; ?> "><i class="far fa-heart" id="btn-favoritos"></i></a></li>
-                                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="agregar_carrito.php?id=<?php echo $producto['id']; ?>">Agregar al carrito</a></li>
+                                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.php?id=<?php echo $producto['id']; ?>" id="add-to-cart-btn">Agregar al carrito</a></li>
                                                         <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="detalle_producto.php?id=<?php echo $producto['id']; ?>"><i class="fas fa-expand"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -220,6 +220,25 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                                         </div>
                                     </div>
                                 <?php } ?>
+                            </div>
+                            <div class="modal fade" id="agregadoModal" tabindex="-1" role="dialog" aria-labelledby="agregadoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="agregadoModalLabel">Producto agregado correctamente</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Tu producto ha sido agregado al carrito.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                            <a href="carrito.php" class="btn btn-primary">Ir al carrito</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
 
