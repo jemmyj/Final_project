@@ -2,39 +2,16 @@
 <html lang="es">
 
 <?php
-session_start();
-require_once("../models/Usuario.php");
-$rol = $_SESSION["usu_rol"];
-
-// Crear una instancia de la clase Productos
-$usuarios = new Usuario();
-$id_usuario = $_SESSION['usu_id']; // obtener el id del usuario guardado en la sesión
-
-// Obtener los datos de los productos
-$resultado = $usuarios->getUser($id_usuario);
-
+require_once '../../models/Usuario.php';
 ?>
 
 <head>
-    <?php include '../config/MainHead.php';; ?>
+    <?php include '../../config/MainHead.php'; ?>
 </head>
+
 <style>
-    body {
-        font-size: 16px;
-        line-height: 1.5;
-        margin: 0;
-        padding: 0;
-    }
-
-    h1 {
-        font-size: 28px;
-        margin-bottom: 16px;
-        text-align: center;
-        margin-top: 50px;
-    }
-
-    #perfil {
-
+    form {
+        background-color: #ffffff;
         border: 1px solid #dddddd;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin: 0 auto;
@@ -59,10 +36,7 @@ $resultado = $usuarios->getUser($id_usuario);
         width: 100%;
     }
 
-    #Guardar,
-    #Editar,
-    #admin,
-    #cancelar {
+    input[type="submit"] {
         background-color: #007bff;
         border: none;
         color: #ffffff;
@@ -91,53 +65,44 @@ $resultado = $usuarios->getUser($id_usuario);
 
 <body>
     <div class="page-holder">
-        <?php include '../config/MainHeader.php'; ?>
+        <?php include '../../config/MainHeader.php'; ?>
         <div class="container">
             <section class="py-5 bg-light">
                 <div class="container">
                     <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
                         <div class="col-lg-6">
-                            <h1 class="h2 text-uppercase mb-0">My account</h1>
+                            <h1 class="h2 text-uppercase mb-0">Register</h1>
                         </div>
                         <div class="col-lg-6 text-lg-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
                                     <li class="breadcrumb-item"><a class="text-dark" href="../index.php">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">My account</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Register</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
             </section>
-            <div class="form-container">
-                <form id="perfil" action="login.php" method="POST">
-                    <h2 id="perfil_title">Pulse editar para cambiar información</h2>
-                    <br>
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" value="<?php echo $resultado['nombre']; ?>" disabled><br><br>
-                    <label for="correo">Correo electrónico:</label>
-                    <input type="email" id="email" name="email" value="<?php echo $resultado['correo']; ?>" disabled><br><br>
-                    <label for="contrasena">Contraseña:</label>
-                    <input type="password" id="contrasena" name="contrasena" value="<?php echo $resultado['contrasena']; ?>" disabled><br><br>
-                    <input type="button" onclick="cancelarEdit()" class="d-none" name="cancelar" id="cancelar" value="Cancelar">
-                    <a href="/views/Admin/"> <input type="button" class="<?php if ($rol == 0) {
-                                                                                echo "d-none";
-                                                                            } ?>" name="admin" id="admin" value="Administrar"></a>
-                    <input type="button" onclick="editar()" name="Editar" id="Editar" value="Editar">
-                    <input type="submit" class="d-none" name="Guardar" id="Guardar" value="Guardar cambios">
-                </form>
-
-                <!-- <form action="logout.php" method="POST">
-                    <button type="submit" name="logout" class="btn btn-primary mt-3">Logout</button>
-                </form> -->
-            </div>
+            <!--  Content -->
+            <form id="register-form" action="/index.php" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br>
+                <label for="correo">Email:</label>
+                <input type="email" id="correo" name="correo"><br>
+                <label for="contrasena">Password:</label>
+                <input type="password" id="contrasena" name="contrasena"><br>
+                <a href="../../login.php">You have account?</a>
+                <br>
+                <input type="submit" name="register" value="Register">
+            </form>
         </div>
         <footer class="bg-dark text-white">
-            <?php include '../config/MainFooter.php'; ?>
+            <?php include '../../config/MainFooter.php'; ?>
         </footer>
         <!-- JS -->
-        <?php include '../config/MainJs.php'; ?>
+        <?php include '../../config/MainJs.php'; ?>
+
         <script>
             // ------------------------------------------------------- //
             //   Inject SVG Sprite - 
@@ -162,10 +127,12 @@ $resultado = $usuarios->getUser($id_usuario);
             // pls don't forget to change to your domain :)
             injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
         </script>
+
         <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
     </div>
-    <script src="../views/perfil.js"></script>
+    <script src="/views/Registrar/registrar.js"></script>
 
 </body>
 

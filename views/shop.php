@@ -3,7 +3,7 @@
 
 
 <?php session_start();
-include '../config/MainHead.php';
+
 ?>
 <?php // Incluir el archivo Productos.php
 require_once '../models/Productos.php';
@@ -31,6 +31,10 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
 
 
 ?>
+
+<head>
+    <?php include '../config/MainHead.php';; ?>
+</head>
 
 <body>
     <div class="page-holder">
@@ -210,13 +214,13 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                                                 <div class="product-overlay">
                                                     <ul class="mb-0 list-inline">
                                                         <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark btn-add-favorites" data-product-id="<?php echo $producto['id']; ?> "><i class="far fa-heart" id="btn-favoritos"></i></a></li>
-                                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.php?id=<?php echo $producto['id']; ?>" id="add-to-cart-btn">Agregar al carrito</a></li>
+                                                        <!-- <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.php?id=<?php echo $producto['id']; ?>" id="add-to-cart-btn">Agregar al carrito</a></li> -->
                                                         <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="detalle_producto.php?id=<?php echo $producto['id']; ?>"><i class="fas fa-expand"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <h6><a class="reset-anchor" href="detalle_producto.php?id=<?php echo $producto['id']; ?>"><?php echo $producto['nombre']; ?></a></h6>
-                                            <p class="small text-muted">$<?php echo $producto['precio']; ?></p>
+                                            <p class="small text-muted"><?php echo $producto['precio']; ?>€</p>
                                         </div>
                                     </div>
                                 <?php } ?>
@@ -272,9 +276,12 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
             </section>
         </div>
 
-        <?php include '../config/MainFooter.php'; ?>
+        <footer class="bg-dark text-white">
+            <?php include '../config/MainFooter.php'; ?>
+        </footer>
         <!-- JS -->
         <?php include '../config/MainJs.php'; ?>
+        
         <script src="../index.js"></script>
         <script>
             var range = document.getElementById('range');
@@ -301,32 +308,6 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                 }
             });
         </script>
-        <script>
-            // ------------------------------------------------------- //
-            //   Inject SVG Sprite - 
-            //   see more here 
-            //   https://css-tricks.com/ajaxing-svg-sprite/
-            // ------------------------------------------------------ //
-            function injectSvgSprite(path) {
-
-                var ajax = new XMLHttpRequest();
-                ajax.open("GET", path, true);
-                ajax.send();
-                ajax.onload = function(e) {
-                    var div = document.createElement("div");
-                    div.className = 'd-none';
-                    div.innerHTML = ajax.responseText;
-                    document.body.insertBefore(div, document.body.childNodes[0]);
-                }
-            }
-            // this is set to BootstrapTemple website as you cannot 
-            // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
-            // while using file:// protocol
-            // pls don't forget to change to your domain :)
-            injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
-        </script>
-        <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>
 </body>
 

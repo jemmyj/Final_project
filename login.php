@@ -22,23 +22,10 @@ if (isset($_POST["inicio_sesion"])) {
 }
 ?>
 
-<?php include 'config/MainHead.php'; ?>
+<head>
+    <?php include 'config/MainHead.php'; ?>
+</head>
 <style>
-    body {
-        background-color: #f8f8f8;
-        font-size: 16px;
-        line-height: 1.5;
-        margin: 0;
-        padding: 0;
-    }
-
-    h1 {
-        font-size: 28px;
-        margin-bottom: 16px;
-        text-align: center;
-        margin-top: 50px;
-    }
-
     form {
         background-color: #ffffff;
         border: 1px solid #dddddd;
@@ -95,18 +82,38 @@ if (isset($_POST["inicio_sesion"])) {
 <body>
     <div class="page-holder">
         <?php include 'config/MainHeader.php'; ?>
-        <!--  Content -->
-        <h1>Iniciar sesión</h1>
-        <form action="login.php" method="POST">
-            <label for="correo">Correo electrónico:</label>
-            <input type="email" id="correo" name="correo"><br>
-            <label for="contrasena">Contraseña:</label>
-            <input type="password" id="contrasena" name="contrasena"><br>
-            <br>
-            <input type="submit" name="inicio_sesion" value="Iniciar sesión">
-        </form>
-
-        <?php include 'config/MainFooter.php'; ?>
+        <div class="container">
+            <section class="py-5 bg-light">
+                <div class="container">
+                    <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="h2 text-uppercase mb-0">Login</h1>
+                        </div>
+                        <div class="col-lg-6 text-lg-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                                    <li class="breadcrumb-item"><a class="text-dark" href="index.php">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Login</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--  Content -->
+            <form action="login.php" method="POST">
+                <label for="correo">Correo electrónico:</label>
+                <input type="email" id="correo" name="correo"><br>
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena"><br>
+                <a href="/views/Registrar">You don't have account?</a>
+                <br>
+                <input type="submit" name="inicio_sesion" value="Iniciar sesión">
+            </form>
+        </div>
+        <footer class="bg-dark text-white">
+            <?php include 'config/MainFooter.php'; ?>
+        </footer>
         <!-- JS -->
         <?php include 'config/MainJs.php'; ?>
         <script>

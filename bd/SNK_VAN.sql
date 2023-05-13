@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 01, 2023 at 01:22 PM
+-- Generation Time: May 12, 2023 at 09:58 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -89,9 +89,9 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `imagen`, `categoria`, `creado_en`, `actualizado_en`) VALUES
-(1, 'Nike Aie Force 1', 'El fulgor sigue vivo en las Nike Air Force 1 \'07, un modelo original de baloncesto que introduce un nuevo giro a sus ya característicos revestimientos con costuras duraderas, sus acabados impecables y la cantidad perfecta de reflectante.', '120.00', './public/img/nike4.png', 'nike', '2023-04-08 12:22:19', '2023-04-22 15:06:57'),
-(2, 'Adidas', 'El fulgor sigue vivo con un diseño de baloncesto original. Con un diseño que combina la comodidad para la cancha con un estilo urbano, estas zapatillas dan un nuevo giro a su ya característico estilo, su confección inspirada en los 80, sus detalles llamativos y su estilo impecable.', '130.00', './public/img/adidas1.png', NULL, '2023-04-08 12:23:03', '2023-04-23 12:27:26'),
-(3, 'Adidas', 'Hola', '130.00', './public/img/jordan3.png', 'asdasd', '2023-04-23 17:56:05', '2023-04-23 17:56:40');
+(1, 'Nike Aie Force 1', 'El fulgor sigue vivo en las Nike Air Force 1 \'07, un modelo original de baloncesto que introduce un nuevo giro a sus ya característicos revestimientos con costuras duraderas, sus acabados impecables y la cantidad perfecta de reflectante.', '120.00', 'nike4.png', 'nike', '2023-04-08 12:22:19', '2023-05-01 11:42:12'),
+(2, 'Adidas', 'El fulgor sigue vivo con un diseño de baloncesto original. Con un diseño que combina la comodidad para la cancha con un estilo urbano, estas zapatillas dan un nuevo giro a su ya característico estilo, su confección inspirada en los 80, sus detalles llamativos y su estilo impecable.', '130.00', 'adidas1.png', NULL, '2023-04-08 12:23:03', '2023-05-01 11:48:14'),
+(3, 'Adidas', 'Hola', '130.00', 'jordan3.png', 'asdasd', '2023-04-23 17:56:05', '2023-05-01 11:48:19');
 
 -- --------------------------------------------------------
 
@@ -114,7 +114,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `creado_en`, `actualizado_en`, `likes`) VALUES
-(1, 'Jemmy', 'jemmyjin30@gmail.com', 'Jinwoaini123', '2023-04-06 13:09:30', '2023-05-01 11:13:55', 16);
+(1, 'Jemmy', 'jemmyjin30@gmail.com', 'Jinwoaini123', '2023-04-06 13:09:30', '2023-05-11 21:11:31', 17),
+(2, 'hola', 'jemmy@gmail.com', '156165', '2023-05-11 21:36:40', '2023-05-11 21:36:40', NULL),
+(3, '123', 'jj@gmail.com', '165156', '2023-05-11 21:41:26', '2023-05-11 21:41:26', NULL);
 
 -- --------------------------------------------------------
 
@@ -141,7 +143,9 @@ CREATE TABLE `ventas` (
 -- Indexes for table `carritos_de_compras`
 --
 ALTER TABLE `carritos_de_compras`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `producto_id` (`producto_id`);
 
 --
 -- Indexes for table `direcciones_de_envio`
@@ -153,7 +157,9 @@ ALTER TABLE `direcciones_de_envio`
 -- Indexes for table `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `direccion_id` (`direccion_id`);
 
 --
 -- Indexes for table `productos`
@@ -206,13 +212,31 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ventas`
 --
 ALTER TABLE `ventas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `carritos_de_compras`
+--
+ALTER TABLE `carritos_de_compras`
+  ADD CONSTRAINT `carritos_de_compras_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `carritos_de_compras_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
+
+--
+-- Constraints for table `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`direccion_id`) REFERENCES `direcciones_de_envio` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,5 +1,7 @@
+
+
 <!--  Modal -->
-<div class="modal fade" id="productView" tabindex="-1">
+<!-- <div class="modal fade" id="productView" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content overflow-hidden border-0">
             <button class="btn-close p-4 position-absolute top-0 end-0 z-index-20 shadow-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -36,7 +38,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- HERO SECTION-->
 <div class="container">
     <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(../public/img/fondoPrincipal.jpeg);">
@@ -56,12 +58,12 @@
             <h2 class="h5 text-uppercase mb-4">Browse our categories</h2>
         </header>
         <div class="row">
-            <div class="col-md-4"><a class="category-item" href="shop.html"><img class="img-fluid" src="img/cat-img-1.jpg" alt="" /><strong class="category-item-title">Clothes</strong></a>
+            <div class="col-md-4"><a class="category-item" href="../views/shop.php"><img class="img-fluid" src="img/cat-img-1.jpg" alt="" /><strong class="category-item-title">Sneakers</strong></a>
             </div>
-            <div class="col-md-4"><a class="category-item mb-4" href="shop.html"><img class="img-fluid" src="img/cat-img-2.jpg" alt="" /><strong class="category-item-title">Shoes</strong></a>
+            <div class="col-md-4"><a class="category-item mb-4" href="../views/shop.php"><img class="img-fluid" src="img/cat-img-2.jpg" alt="" /><strong class="category-item-title">Shoes</strong></a>
                 <!-- <a class="category-item" href="shop.html"><img class="img-fluid" src="img/cat-img-3.jpg" alt="" /><strong class="category-item-title">Watches</strong></a> -->
             </div>
-            <div class="col-md-4"><a class="category-item" href="shop.html"><img class="img-fluid" src="img/cat-img-4.jpg" alt="" /><strong class="category-item-title">Electronics</strong></a>
+            <div class="col-md-4"><a class="category-item" href="../views/shop.php"><img class="img-fluid" src="img/cat-img-4.jpg" alt="" /><strong class="category-item-title">Flip Flops</strong></a>
             </div>
         </div>
     </section>
@@ -168,7 +170,7 @@
                             <ul class="mb-0 list-inline">
                                 <li class="list-inline-item m-0 p-0"><a id="btn-favoritos" class="btn btn-sm btn-outline-dark"><i class="far fa-heart"></i></a></li>
                                 <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.php">Add to cart</a></li>
-                                <li class="list-inline-item me-0"><a class="btn btn-sm btn-outline-dark" href="#productView" data-bs-toggle="modal"><i class="fas fa-expand"></i></a></li>
+                                <li class="list-inline-item me-0"><a class="btn btn-sm btn-outline-dark glightbox product-view d-block h-100 bg-cover bg-center" href="../public/img/adidas1.png/" data-gallery="gallery1" data-glightbox="Red digital smartwatch"><i class="fas fa-expand"></i></a></li>
                             </ul>
                         </div>
                     </div>
