@@ -37,6 +37,7 @@
 <!-- Google fonts-->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
+
 <!-- theme stylesheet-->
 <link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
                                     echo '../../';
@@ -59,6 +60,7 @@
                         }
                         ?>public/icons/sneaker.ico">
 
+
 <!-- sweetAlert -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
 <!-- **************** ACTUALES DATATABLES ************************************************-->
@@ -71,3 +73,5 @@
 <!-- ****************************************************************************************************** -->
 <!-- ********************* FONT AWESOME 6.4.0 *********************************** -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">

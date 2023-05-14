@@ -11,12 +11,18 @@ require_once '../models/Usuario.php';
 // Crear una instancia de la clase Productos
 $productos = new Productos();
 
+// Obtener el número de la página actual
+$pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+// Calcular el índice del primer producto a mostrar
+$start = ($pagina_actual - 1) * 9;
+
 // Obtener los datos de los productos
-$resultado = $productos->listarProductos();
+$resultado = $productos->listarProductosPorPaginas($start);
 
 
 // Definir la cantidad de elementos por página
-$elementos_por_pagina = 10;
+$elementos_por_pagina = 9;
 
 // Calcular el número total de páginas
 $total_registros = $productos->pagination()[0]['total'];
@@ -111,24 +117,6 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                                 <li class="mb-2"><a class="reset-anchor" href="#!">Women's sunglasses</a></li>
                                 <li class="mb-2"><a class="reset-anchor" href="#!">Men's sunglasses</a></li>
                             </ul>
-                            <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase fw-bold">Health &amp; Beauty</strong></div>
-                            <ul class="list-unstyled small text-muted ps-lg-4 font-weight-normal">
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Shavers</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">bags</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Cosmetic</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Nail Art</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Skin Masks &amp; Peels</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Korean cosmetics</a></li>
-                            </ul>
-                            <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase fw-bold">Electronics</strong></div>
-                            <ul class="list-unstyled small text-muted ps-lg-4 font-weight-normal mb-5">
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Electronics</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">USB Flash drives</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Headphones</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Portable speakers</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Cell Phone bluetooth headsets</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Keyboards</a></li>
-                            </ul>
                             <h6 class="text-uppercase mb-4">Price range</h6>
                             <div class="price-range pt-4 mb-5">
                                 <div id="range"></div>
@@ -136,48 +124,6 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                                     <div class="col-6"><strong class="small fw-bold text-uppercase">From</strong></div>
                                     <div class="col-6 text-end"><strong class="small fw-bold text-uppercase">To</strong></div>
                                 </div>
-                            </div>
-                            <h6 class="text-uppercase mb-3">Show only</h6>
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="checkbox" id="checkbox_1">
-                                <label class="form-check-label" for="checkbox_1">Returns Accepted</label>
-                            </div>
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="checkbox" id="checkbox_2">
-                                <label class="form-check-label" for="checkbox_2">Returns Accepted</label>
-                            </div>
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="checkbox" id="checkbox_3">
-                                <label class="form-check-label" for="checkbox_3">Completed Items</label>
-                            </div>
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="checkbox" id="checkbox_4">
-                                <label class="form-check-label" for="checkbox_4">Sold Items</label>
-                            </div>
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="checkbox" id="checkbox_5">
-                                <label class="form-check-label" for="checkbox_5">Deals &amp; Savings</label>
-                            </div>
-                            <div class="form-check mb-4">
-                                <input class="form-check-input" type="checkbox" id="checkbox_6">
-                                <label class="form-check-label" for="checkbox_6">Authorized Seller</label>
-                            </div>
-                            <h6 class="text-uppercase mb-3">Buying format</h6>
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="radio" name="customRadio" id="radio_1">
-                                <label class="form-check-label" for="radio_1">All Listings</label>
-                            </div>
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="radio" name="customRadio" id="radio_2">
-                                <label class="form-check-label" for="radio_2">Best Offer</label>
-                            </div>
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="radio" name="customRadio" id="radio_3">
-                                <label class="form-check-label" for="radio_3">Auction</label>
-                            </div>
-                            <div class="form-check mb-1">
-                                <input class="form-check-input" type="radio" name="customRadio" id="radio_4">
-                                <label class="form-check-label" for="radio_4">Buy It Now</label>
                             </div>
                         </div>
                         <!-- SHOP LISTING-->
@@ -225,25 +171,6 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                                     </div>
                                 <?php } ?>
                             </div>
-                            <div class="modal fade" id="agregadoModal" tabindex="-1" role="dialog" aria-labelledby="agregadoModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="agregadoModalLabel">Producto agregado correctamente</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Tu producto ha sido agregado al carrito.
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                            <a href="carrito.php" class="btn btn-primary">Ir al carrito</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
 
                             <!-- PAGINATION-->
@@ -281,7 +208,7 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
         </footer>
         <!-- JS -->
         <?php include '../config/MainJs.php'; ?>
-        
+
         <script src="../index.js"></script>
         <script>
             var range = document.getElementById('range');

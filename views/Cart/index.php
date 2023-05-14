@@ -37,7 +37,7 @@ $precio = $precio_total[0]["total"];
             <div class="col-lg-6 text-lg-end">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
-                  <li class="breadcrumb-item"><a class="text-dark" href="index.html">Home</a></li>
+                  <li class="breadcrumb-item"><a class="text-dark" href="/">Home</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Cart</li>
                 </ol>
               </nav>
@@ -164,12 +164,12 @@ $precio = $precio_total[0]["total"];
                   <?php foreach ($resultado as $producto) { ?>
                     <tr>
                       <th class="ps-0 py-3 border-light" scope="row">
-                        <div class="d-flex align-items-center"><a class="reset-anchor d-block animsition-link" href="../detalle_producto.php?id=" <?php echo $producto['producto_id']; ?>><img src="../../public/img/<?php echo $producto['imagen']; ?>" alt="..." width="70" /></a>
-                          <div class="ms-3"><strong class="h6"><a class="reset-anchor animsition-link" href="../detalle_producto.php?id=" <?php echo $producto['producto_id']; ?>><?php echo $producto['nombre']; ?></a></strong></div>
+                        <div class="d-flex align-items-center "><a class="reset-anchor d-block animsition-link" href="../../views/detalle_producto.php?id=<?php echo $producto['producto_id']; ?>"><img src="../../public/img/<?php echo $producto['imagen']; ?>" alt="..." width="70" /></a>
+                          <div class="ms-3 product-name"><strong class="h6"><a class="reset-anchor animsition-link " href="../../views/detalle_producto.php?id=<?php echo $producto['producto_id']; ?>"><?php echo $producto['nombre']; ?></a></strong></div>
                         </div>
                       </th>
                       <td class="p-3 align-middle border-light">
-                        <p class="mb-0 small"><?php echo $producto['precio']; ?>€</p>
+                        <p class="mb-0 small"><?php echo $producto['precio']; ?> €</p>
                       </td>
                       <td class="p-3 align-middle border-light">
                         <p class="mb-0 small"><?php echo $producto['talla']; ?></p>
@@ -185,9 +185,9 @@ $precio = $precio_total[0]["total"];
                       </td>
                       <td class="p-3 align-middle border-light">
                         <p class="mb-0 small"><?php $precio_total = $producto['precio'] * $producto["cantidad"];
-                                              echo $precio_total ?>€</p>
+                                              echo $precio_total ?> €</p>
                       </td>
-                      <td class="p-3 align-middle border-light"><a class="reset-anchor" href="#!"><i class="fas fa-trash-alt small text-muted"></i></a></td>
+                      <td class="p-3 align-middle border-light"><a class="reset-anchor"><i class="fas fa-trash-alt small text-muted" onClick="delete_cart(<?php echo $producto['id']; ?>)"></i></a></td>
 
                     </tr>
                   <?php } ?>
@@ -210,7 +210,7 @@ $precio = $precio_total[0]["total"];
                 <ul class="list-unstyled mb-0">
                   <!-- <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">$250</span></li> -->
                   <li class="border-bottom my-2"></li>
-                  <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span><?php echo $precio ?>€</span></li>
+                  <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span><?php echo $precio ?> €</span></li>
                   <li>
                     <form action="#">
                       <div class="input-group mb-0">
@@ -255,5 +255,7 @@ $precio = $precio_total[0]["total"];
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   </div>
 </body>
+
+<script src="./Cart/cart.js"></script>
 
 </html>

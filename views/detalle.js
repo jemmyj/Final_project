@@ -11,6 +11,9 @@ function insertarToCart(id) {
             // Si la respuesta es exitosa, mostramos el mensaje de éxito al usuario
             Swal.fire('Añadido al carrito!', '', 'success').then((result) => {
                 $('#size-select').val(0);
+                if (result.isConfirmed) {
+                    location.reload();
+                }
             });
 
         }// del success 

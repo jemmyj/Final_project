@@ -82,3 +82,16 @@ body {
   background-color: white;
   margin-bottom: 20px;
 }
+
+/* raton encima del detele cart */
+.reset-anchor:hover {
+  cursor: pointer !important;
+}
+
+/* puntos suspensivos a la columna product */
+.product-name {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 150px !important; /* ajusta el ancho máximo según tus necesidades */
+}

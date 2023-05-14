@@ -81,7 +81,8 @@ $('#admin_table').DataTable({
         { name: "product" },
         { name: "description" },
         { name: "price" },
-        { name: "creat_time" },
+        { name: "code" },
+        { name: "date_created" },
         { name: "accion", className: "text-center" }
     ],
     columnDefs: [
@@ -96,10 +97,12 @@ $('#admin_table').DataTable({
         { targets: [3], orderData: false, visible: true },
         //price
         { targets: [4], orderData: [0], visible: true },
-        //creat_time
-        { targets: [5], orderData: [0], visible: true },
+        //code
+        { targets: [5], orderData: false, visible: true },
+        //date_created
+        { targets: [6], orderData: [0], visible: true },
         //accion
-        { targets: [6], orderData: false, visible: true }
+        { targets: [7], orderData: false, visible: true }
     ],
 
     "ajax": {
@@ -127,7 +130,6 @@ $('#admin_table').DataTable({
 $("#admin_table").addClass("width-100");
 
 
-
 $(document).ready(function () {
     // Cuando se hace clic en el botón "Add Product"
     $(".btn-outline-primary").click(function () {
@@ -139,30 +141,24 @@ $(document).ready(function () {
     $("#cancel-btn").click(function () {
         // Ocultar el formulario modal
         $("#myModal").hide();
+        $("#edit_modal").hide();
     });
 
+    $("#cancel-btn-editar").click(function () {
+        // Ocultar el formulario modal
+        $("#edit_modal").hide();
+    });
     // Cuando se hace clic en el botón "X" para cerrar el modal
     $(".close").click(function () {
         // Ocultar el formulario modal
         $("#myModal").hide();
+        $("#edit_modal").hide();
     });
+
+
 });
 
-tinymce.init({
-    selector: '#description',
-    selector: 'textarea',
-    branding: false, // Oculta el texto amarillo
-    plugins: '...',
-    toolbar: '...',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    apiKey: 'zu02gvsz5jbr3wl83c20x6mxnw8h97w8xky98t9uax1py8xw',
-    content_css: [
-        '//www.tiny.cloud/css/codepen.min.css'
-    ],
-    // URL de la política de privacidad de TinyMCE
-    content_security_policy: "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tiny.cloud https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.tiny.cloud https://cdnjs.cloudflare.com;",
-});
+
 
 /**********************************************************************/
 /****************INSERTAR PRODUCT************************************/
@@ -178,10 +174,6 @@ $("#insertar-product-form").on("submit", function (e) {
 
     // Agregar la ruta al objeto FormData
     formData.append('imagePath', fileName);
-    // Contenido del textArea
-    var content = tinyMCE.get('description').getContent();
-    // Enviarlo al formDataformData.append('description', content);
-    formData.append('description', content);
 
     $.ajax({
         url: "../../controller/admin.php?op=insertarProduct",
@@ -196,7 +188,7 @@ $("#insertar-product-form").on("submit", function (e) {
 
             // Vaciar los datos del FormData
             $("#insertar-product-form")[0].reset();
-            tinymce.activeEditor.setContent('');
+            $('#description').summernote('reset');
 
             swal.fire(
                 'Added',
@@ -212,6 +204,7 @@ $("#insertar-product-form").on("submit", function (e) {
 //ELIMINAR UN PRODUCTO
 
 function delete_product(id) {
+
     swal.fire({
         title: 'Delete',
         text: "¿You wish to delete the product?",
@@ -236,3 +229,108 @@ function delete_product(id) {
         }
     })
 }
+
+
+function editarProduct(id) {
+    // Mostrar el formulario modal
+    $("#edit_modal").show();
+    $('#id_product').val(id);
+    idProduct = $('#id_product').val();
+    $.post("../../controller/admin.php?op=obtenerProduct", { id: id }, function (data) {
+        var data = JSON.parse(data);
+        console.log(data)
+        //Cargar datos
+        $('#product-nameE').val(data[0].nombre);
+        $('#product-priceE').val(data[0].precio);
+        $('#categoriaE').val(data[0].categoria);
+        $('#codigoE').val(data[0].codigo);
+        $('#descriptionE').summernote('code', data[0].descripcion);
+        // Mostrar imagen actual
+        var imagen = data[0].imagen;
+        var imagenElement = $('#imagenE');
+        if (imagen) {
+            imagenElement.attr('src', '../../public/img/' + imagen);
+            imagenElement.show();
+        } else {
+            imagenElement.hide();
+        }
+
+        // Establecer evento para seleccionar archivo
+        $('#fileE').on('change', function () {
+            var archivo = $(this).get(0).files[0];
+            var lector = new FileReader();
+            lector.onload = function () {
+                imagenElement.attr('src', lector.result);
+                imagenElement.show();
+            };
+            lector.readAsDataURL(archivo);
+        });
+
+
+    }) // Recuperar datos del producto
+}
+
+// GUARDAR EDITAR
+$("#editar-product-form").on("submit", function (e) {
+    e.preventDefault();
+    var formData = new FormData($("#editar-product-form")[0]);
+    // Obtener el objeto File de la imagen seleccionada
+    var imageFile = formData.get('fileE');
+
+    // Obtener el nombre del archivo
+    var fileName = imageFile.name;
+
+    // Agregar la ruta al objeto FormData
+    formData.append('imagePath', fileName);
+
+
+    $.ajax({
+        url: "../../controller/admin.php?op=editarProduct",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function () {
+            swal.fire(
+                'Edit',
+                'The product was edited!',
+                'success'
+            ).then(() => {
+                $('#edit_modal').modal('hide');
+                location.reload();
+            })
+        } // del success
+    }); // del ajax
+
+
+});
+
+$('#descriptionE').summernote({
+    placeholder: 'Description',
+    tooltip: false,
+    tabsize: 2,
+    height: 150,
+    lang: 'es-ES', // default: 'en-US'
+    toolbar: [
+
+        ['font', ['bold', 'italic', 'underline']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol']],
+        ['insert', ['hr']],
+    ]
+});
+
+$('#description').summernote({
+    placeholder: 'Description',
+    tooltip: false,
+    tabsize: 2,
+    height: 150,
+    lang: 'es-ES', // default: 'en-US'
+    toolbar: [
+
+        ['font', ['bold', 'italic', 'underline']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol']],
+        ['insert', ['hr']]
+    ]
+});
