@@ -81,7 +81,7 @@ class Usuario extends Conectar
     {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "INSERT INTO `usuarios`( `nombre`, `correo`, `contrasena`, `creado_en`) VALUES ('$usuario_id','$producto_id','$cantidad',now())";
+        $sql = "INSERT INTO `usuarios`( `nombre`, `correo`, `contrasena`, `rol` ,`creado_en`) VALUES ('$usuario_id','$producto_id','$cantidad', 0 ,now())";
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado = $sql->fetchAll();
@@ -98,6 +98,24 @@ class Usuario extends Conectar
         $conectar = parent::conexion();
         parent::set_names();
         $sql = " UPDATE `usuarios` SET `nombre`='$nombre',`correo`='$correo',`contrasena`='$contrasena',`actualizado_en`= now() WHERE `id` ='$id' ";
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+    }
+
+    public function verifyUser($user)
+    {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "SELECT * FROM `usuarios` WHERE `correo` = '$user' ";
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+    }
+
+    public function updatePassword($user, $password)
+    {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = " UPDATE `usuarios` SET `contrasena`='$password',`actualizado_en`= now() WHERE `correo` ='$user' ";
         $sql = $conectar->prepare($sql);
         $sql->execute();
     }

@@ -4,13 +4,31 @@ require_once("conections.php");
 class Productos extends Conectar
 {
 
-    public function listarProductosPorPaginas($start)
+    public function listarProductosPorPaginasFiltro($start, $selectedValue)
     {
         $conectar = parent::conexion();
         parent::set_names();
 
-        $sql = "SELECT * FROM productos  LIMIT $start, 9";
-
+        $sql = "SELECT * FROM productos ORDER BY ";
+        // Verifica el valor seleccionado y agrega la cláusula ORDER BY correspondiente
+        switch ($selectedValue) {
+            case 'popularity':
+                $sql .= "valoracion DESC LIMIT $start, 9";
+                break;
+            case 'low-high':
+                $sql .= "precio ASC LIMIT $start, 9";
+                break;
+            case 'high-low':
+                $sql .= "precio DESC LIMIT $start, 9";
+                break;
+            case 'default':
+                $sql .= "nombre ASC LIMIT $start, 9";
+                break;
+            default:
+                // Ordenamiento predeterminado o acción adicional si no se selecciona ninguna opción válida
+                $sql .= "nombre ASC LIMIT $start, 9";
+                break;
+        }
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado = $sql->fetchAll();
@@ -61,25 +79,60 @@ class Productos extends Conectar
         return $resultado = $sql->fetchAll();
     }
 
-    public function limit_produc($offset, $elementos_por_pagina)
+    public function limit_produc($offset, $elementos_por_pagina, $filtro)
     {
         $conectar = parent::conexion();
         parent::set_names();
 
-        $sql = "SELECT * FROM productos LIMIT $offset, $elementos_por_pagina";
+        $sql = "SELECT * FROM productos ORDER BY ";
+
+        // Verifica el valor seleccionado y agrega la cláusula ORDER BY correspondiente
+        switch ($filtro) {
+            case 'popularity':
+                $sql .= "valoracion";
+                break;
+            case 'low-high':
+                $sql .= "precio";
+                break;
+            case 'high-low':
+                $sql .= "precio";
+                break;
+            default:
+                // Ordenamiento predeterminado o acción adicional si no se selecciona ninguna opción válida
+                $sql .= "nombre";
+                break;
+        }
+
+        // Agrega la cláusula LIMIT para la paginación
+        $sql .= " LIMIT $offset, $elementos_por_pagina";
 
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
 
-    public function pagination()
+    public function pagination($filtro)
     {
         $conectar = parent::conexion();
         parent::set_names();
 
-        $sql = "SELECT COUNT(*) AS total FROM productos";
-
+        $sql = "SELECT COUNT(*) AS total FROM productos ORDER BY ";
+        // Verifica el valor seleccionado y agrega la cláusula ORDER BY correspondiente
+        switch ($filtro) {
+            case 'popularity':
+                $sql .= "valoracion";
+                break;
+            case 'low-high':
+                $sql .= "precio";
+                break;
+            case 'high-low':
+                $sql .= "precio";
+                break;
+            default:
+                // Ordenamiento predeterminado o acción adicional si no se selecciona ninguna opción válida
+                $sql .= "nombre";
+                break;
+        }
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado = $sql->fetchAll();
@@ -108,12 +161,12 @@ class Productos extends Conectar
             $conectar->exec($sql_insert);
         }
     }
-    public function listarCarrito()
+    public function listarCarrito($usu_id)
     {
         $conectar = parent::conexion();
         parent::set_names();
 
-        $sql = "SELECT * FROM `carritos_de_compras_products_`";
+        $sql = "SELECT * FROM `carritos_de_compras_products_` WHERE `usuario_id` = $usu_id";
 
         $sql = $conectar->prepare($sql);
         $sql->execute();
@@ -130,12 +183,12 @@ class Productos extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
-    public function total_cantidad()
+    public function total_cantidad($usu_id)
     {
         $conectar = parent::conexion();
         parent::set_names();
 
-        $sql = "SELECT SUM(`cantidad`) AS `total_cantidad` FROM `carritos_de_compras`;";
+        $sql = "SELECT SUM(`cantidad`) AS `total_cantidad` FROM `carritos_de_compras` WHERE `usuario_id` = $usu_id";
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado = $sql->fetchAll();
@@ -207,6 +260,32 @@ class Productos extends Conectar
         parent::set_names();
         $sql = "SELECT * FROM `productos`
         WHERE `id` = '$id'";
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $resultado = $sql->fetchAll();
+    }
+
+    public function filtro($selectedValue)
+    {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "SELECT * FROM productos ORDER BY ";
+        // Verifica el valor seleccionado y agrega la cláusula ORDER BY correspondiente
+        switch ($selectedValue) {
+            case 'popularity':
+                $sql .= "valoracion DESC";
+                break;
+            case 'low-high':
+                $sql .= "precio ASC";
+                break;
+            case 'high-low':
+                $sql .= "precio DESC";
+                break;
+            default:
+                // Ordenamiento predeterminado o acción adicional si no se selecciona ninguna opción válida
+                $sql .= "nombre ASC";
+                break;
+        }
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado = $sql->fetchAll();

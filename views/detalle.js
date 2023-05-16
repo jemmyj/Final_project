@@ -45,3 +45,28 @@ function incrementValue() {
         select.val(value).trigger('change');
     }
 }
+
+function noUser() {
+    Swal.fire({
+        title: "Register",
+        text: "You don't have account. Do you want to register?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Accept",
+        cancelButtonText: "Cancel"
+    }).then(function (result) {
+        if (result.value) {
+            // Redirect to registar.php if Accept is clicked
+            window.location.href = "./Registrar";
+        }
+    });
+}
+
+function verifyUser($product_id) {
+    $('#usuId').val();
+    if ($('#usuId').val() == '') {
+        noUser();
+    } else {
+        insertarToCart($product_id);
+    }
+}

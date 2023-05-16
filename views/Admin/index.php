@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <?php
 session_start();
@@ -71,11 +71,11 @@ $id_usuario = $_SESSION['usu_id']; // obtener el id del usuario guardado en la s
                                     <input type="text" id="codigo" name="codigo" required><br><br>
                                     <label for="description">Description:</label>
                                     <textarea id="description" name="description"></textarea><br><br>
-                                    <label for="file">Selecciona una imagen:</label>
+                                    <label for="file">Select an image:</label>
                                     <input type="file" name="file" required><br><br>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-dark waves-effect" id="cancel-btn" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                                        <button type="button" class="btn btn-dark waves-effect" id="cancel-btn" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -87,7 +87,7 @@ $id_usuario = $_SESSION['usu_id']; // obtener el id del usuario guardado en la s
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Add Product</h5>
+                                <h5 class="modal-title">Edit Product</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -106,12 +106,12 @@ $id_usuario = $_SESSION['usu_id']; // obtener el id del usuario guardado en la s
                                     <input type="text" id="codigoE" name="codigoE" required><br><br>
                                     <label for="descriptionE">Description:</label>
                                     <textarea id="descriptionE" name="descriptionE"></textarea><br><br>
-                                    <label for="fileE">Selecciona una imagen:</label>
+                                    <label for="fileE">Select an image:</label>
                                     <input type="file" name="fileE"><br><br>
                                     <img id="imagenE" style="width:30%" src=""><br><br>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-dark waves-effect" id="cancel-btn-editar" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                                        <button type="button" class="btn btn-dark waves-effect" id="cancel-btn-editar" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
                                     </div>
                                 </form>
                             </div>

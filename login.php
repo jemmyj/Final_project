@@ -15,9 +15,10 @@ if (isset($_POST["inicio_sesion"])) {
     $resultado = $usuario->login($correo, $contrasena);
 
     if ($resultado == "1") {
-        header("Location: index.php"); //redirigir al usuario a la página de inicio después del inicio de sesión exitoso
+        header("Location: /"); // Redirigir al usuario a la página de inicio después del inicio de sesión exitoso
+        exit;
     } else {
-        $mensaje_error = $resultado; //mostrar mensaje de error al usuario
+        $mensaje_error = $resultado; // Mostrar mensaje de error al usuario
     }
 }
 ?>
@@ -72,10 +73,11 @@ if (isset($_POST["inicio_sesion"])) {
         background-color: #0069d9;
     }
 
-    .error {
-        color: #ff0000;
-        font-size: 14px;
-        margin-top: 8px;
+    /* validacion form */
+    .error-message {
+        color: red !important;
+        font-size: 12px;
+        margin-top: 5px;
     }
 </style>
 
@@ -92,7 +94,7 @@ if (isset($_POST["inicio_sesion"])) {
                         <div class="col-lg-6 text-lg-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
-                                    <li class="breadcrumb-item"><a class="text-dark" href="index.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a class="text-dark" href="/">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Login</li>
                                 </ol>
                             </nav>
@@ -101,14 +103,16 @@ if (isset($_POST["inicio_sesion"])) {
                 </div>
             </section>
             <!--  Content -->
-            <form action="login.php" method="POST">
-                <label for="correo">Correo electrónico:</label>
+            <form action="login.php" method="POST" id="loginForm">
+                <label for="correo">Email:</label>
                 <input type="email" id="correo" name="correo"><br>
-                <label for="contrasena">Contraseña:</label>
+                <label for="contrasena">Password:</label>
                 <input type="password" id="contrasena" name="contrasena"><br>
-                <a href="/views/Registrar">You don't have account?</a>
+                <a href="/views/Registrar">Don't have an account?</a><br><br>
+                <a href="/views/restaurar.php">Forgot your password?</a>
                 <br>
-                <input type="submit" name="inicio_sesion" value="Iniciar sesión">
+                <input type="submit" id="inicio_sesion" name="inicio_sesion" value="Sign In">
+                <div id="error-message"></div>
             </form>
         </div>
         <footer class="bg-dark text-white">
@@ -144,7 +148,7 @@ if (isset($_POST["inicio_sesion"])) {
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>
 
-
+    <script src="login.js"></script>
 </body>
 
 </html>

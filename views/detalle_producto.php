@@ -14,9 +14,11 @@ $resultado = $productos->detalle_product($_GET["id"]);
 
 
 ?>
+
 <head>
     <?php include '../config/MainHead.php';; ?>
 </head>
+
 <body>
     <div class="page-holder">
         <?php include '../config/MainHeader.php'; ?>
@@ -60,9 +62,10 @@ $resultado = $productos->detalle_product($_GET["id"]);
             </div>
         </div>
         <section class="py-5">
-            <div class="container">
-                <div class="row mb-5">
-                    <?php foreach ($resultado as $producto) { ?>
+            <?php foreach ($resultado as $producto) { ?>
+                <div class="container">
+                    <div class="row mb-5">
+
                         <div class="col-lg-6">
                             <!-- PRODUCT SLIDER-->
 
@@ -82,9 +85,9 @@ $resultado = $productos->detalle_product($_GET["id"]);
                                     <div class="swiper product-slider">
                                         <div class="swiper-wrapper">
                                             <div class="swiper-slide h-auto"><a class="glightbox product-view" href="../public/img/<?php echo $producto['imagen']; ?>" data-gallery="gallery2" data-glightbox="Product item 1"><img class="img-fluid" src="../public/img/<?php echo $producto['imagen']; ?>" alt="..."></a></div>
-                                            <div class="swiper-slide h-auto"><a class="glightbox product-view" href="img/product-detail-2.jpg" data-gallery="gallery2" data-glightbox="Product item 2"><img class="img-fluid" src="img/product-detail-2.jpg" alt="..."></a></div>
+                                            <!-- <div class="swiper-slide h-auto"><a class="glightbox product-view" href="img/product-detail-2.jpg" data-gallery="gallery2" data-glightbox="Product item 2"><img class="img-fluid" src="img/product-detail-2.jpg" alt="..."></a></div>
                                             <div class="swiper-slide h-auto"><a class="glightbox product-view" href="img/product-detail-3.jpg" data-gallery="gallery2" data-glightbox="Product item 3"><img class="img-fluid" src="img/product-detail-3.jpg" alt="..."></a></div>
-                                            <div class="swiper-slide h-auto"><a class="glightbox product-view" href="img/product-detail-4.jpg" data-gallery="gallery2" data-glightbox="Product item 4"><img class="img-fluid" src="img/product-detail-4.jpg" alt="..."></a></div>
+                                            <div class="swiper-slide h-auto"><a class="glightbox product-view" href="img/product-detail-4.jpg" data-gallery="gallery2" data-glightbox="Product item 4"><img class="img-fluid" src="img/product-detail-4.jpg" alt="..."></a></div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -100,10 +103,12 @@ $resultado = $productos->detalle_product($_GET["id"]);
                                 <li class="list-inline-item m-0 3"><i class="fas fa-star small text-warning"></i></li>
                                 <li class="list-inline-item m-0 4"><i class="fas fa-star small text-warning"></i></li>
                             </ul> -->
-                            <input type="hidden" id="usuId" name="usuId" value="<?php echo $_SESSION["usu_id"]; ?>"> </input>
+                            <input type="hidden" id="usuId" name="usuId" value="<?php if ($_SESSION) {
+                                                                                    echo $_SESSION["usu_id"];
+                                                                                } ?>"> </input>
                             <h1><?php echo $producto['nombre']; ?></h1>
                             <p class="text-muted lead"><?php echo $producto['precio'] . '€'; ?></p>
-                            <p class="text-sm mb-4"><?php echo $producto['descripcion']; ?></p>
+                            <!-- <p class="text-sm mb-4"></p> -->
                             <div class="row align-items-stretch mb-4">
                                 <div class="col-sm-5 pr-sm-0">
                                     <div class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white">
@@ -127,67 +132,56 @@ $resultado = $productos->detalle_product($_GET["id"]);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" onClick="insertarToCart(<?php echo $producto['id']; ?>)">Add to cart</a></div>
-                            </div><a class="text-dark p-0 mb-4 d-inline-block" href="#!"><i class="far fa-heart me-2"></i>Add to wish list</a><br>
+                                <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" onClick="verifyUser(<?php echo $producto["id"]; ?>)">Add to cart</a></div>
+                            </div>
+                            <!-- <a class="text-dark p-0 mb-4 d-inline-block" href="#!"><i class="far fa-heart me-2"></i>Add to wish list</a><br> -->
                             <ul class="list-unstyled small d-inline-block">
                                 <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">SKU:</strong><span class="ms-2 text-muted"><?php echo $producto['codigo']; ?></span></li>
                                 <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ms-2" href="#!"><?php echo $producto['categoria']; ?></a></li>
                                 <!-- <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Tags:</strong><a class="reset-anchor ms-2" href="#!">Innovation</a></li> -->
                             </ul>
                         </div>
-                    <?php } ?>
-                </div>
-                <!-- DETAILS TABS-->
-                <!-- <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
-                    <li class="nav-item"><a class="nav-link text-uppercase active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a></li>
-                    <li class="nav-item"><a class="nav-link text-uppercase" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a></li>
-                </ul>
-                <div class="tab-content mb-5" id="myTabContent">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                        <div class="p-4 p-lg-5 bg-white">
-                            <h6 class="text-uppercase">Product description </h6>
-                            <p class="text-muted text-sm mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        </div>
+
                     </div>
-                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                        <div class="p-4 p-lg-5 bg-white">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="d-flex mb-3">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="img/customer-1.png" alt="" width="50" /></div>
-                                        <div class="ms-3 flex-shrink-1">
-                                            <h6 class="mb-0 text-uppercase">Jason Doe</h6>
-                                            <p class="small text-muted mb-0 text-uppercase">20 May 2020</p>
-                                            <ul class="list-inline mb-1 text-xs">
-                                                <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
-                                            </ul>
-                                            <p class="text-sm mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="img/customer-2.png" alt="" width="50" /></div>
-                                        <div class="ms-3 flex-shrink-1">
-                                            <h6 class="mb-0 text-uppercase">Jane Doe</h6>
-                                            <p class="small text-muted mb-0 text-uppercase">20 May 2020</p>
-                                            <ul class="list-inline mb-1 text-xs">
-                                                <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
-                                            </ul>
-                                            <p class="text-sm mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <!-- DETAILS TABS-->
+                    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+                        <li class="nav-item"><a class="nav-link text-uppercase active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a></li>
+                        <li class="nav-item"><a class="nav-link text-uppercase" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a></li>
+                    </ul>
+                    <div class="tab-content mb-5" id="myTabContent">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                            <div class="p-4 p-lg-5 bg-white">
+                                <h6 class="text-uppercase">Product description </h6>
+                                <p class="text-muted text-sm mb-0"><?php echo $producto['descripcion']; ?></p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                            <div class="p-4 p-lg-5 bg-white">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="d-flex mb-3">
+                                            <div class="ms-3 flex-shrink-1">
+                                                <h6 class="mb-0 text-uppercase">Jason Doe</h6>
+                                                <p class="small text-muted mb-0 text-uppercase">20 May 2020</p>
+                                                <ul class="list-inline mb-1 text-xs">
+                                                    <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+                                                    <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+                                                    <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+                                                    <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+                                                    <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+                                                </ul>
+                                                <p class="text-sm mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
+            <?php } ?>
+            <div class="col-8 p-lg-5">
+                <a href="shop.php?pagina=1" class="btn btn-dark btn-sm">Back to shop</a>
             </div>
         </section>
 

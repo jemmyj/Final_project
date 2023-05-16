@@ -11,7 +11,7 @@ session_start();
 $productos = new Productos();
 
 // Obtener los datos de los productos
-$resultado = $productos->listarCarrito();
+$resultado = $productos->listarCarrito($_SESSION["usu_id"]);
 //precio total
 $precio_total = $productos->precio_total();
 $precio = $precio_total[0]["total"];
@@ -177,15 +177,18 @@ $precio = $precio_total[0]["total"];
                       <td class="p-3 align-middle border-light">
                         <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">Quantity</span>
                           <div class="quantity">
-                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="<?php echo $producto["cantidad"] ?>" />
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                            <button class="p-0" onclick="decrementQuantity(this)"><i class="fas fa-caret-left"></i></button>
+                            <input class="form-control form-control-sm border-0 shadow-0 p-0 quantity-input" type="text" value="<?php echo $producto["cantidad"] ?>" />
+                            <button class="p-0" onclick="incrementQuantity(this)"><i class="fas fa-caret-right"></i></button>
                           </div>
                         </div>
                       </td>
                       <td class="p-3 align-middle border-light">
-                        <p class="mb-0 small"><?php $precio_total = $producto['precio'] * $producto["cantidad"];
-                                              echo $precio_total ?> €</p>
+                        <p class="mb-0 small product-subtotal"><?php
+                                                                $precio_total = $producto['precio'] * $producto["cantidad"];
+                                                                $precio_total_formatted = number_format($precio_total, 2);
+                                                                echo $precio_total_formatted . " €";
+                                                                ?></p>
                       </td>
                       <td class="p-3 align-middle border-light"><a class="reset-anchor"><i class="fas fa-trash-alt small text-muted" onClick="delete_cart(<?php echo $producto['id']; ?>)"></i></a></td>
 
@@ -197,7 +200,7 @@ $precio = $precio_total[0]["total"];
             <!-- CART NAV-->
             <div class="bg-light px-4 py-3">
               <div class="row align-items-center text-center">
-                <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm" href="../shop.php"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
+                <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm" href="../../views/shop.php?pagina=1"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
                 <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm" href="../../views/Checkout/">Procceed to checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
               </div>
             </div>
@@ -210,10 +213,12 @@ $precio = $precio_total[0]["total"];
                 <ul class="list-unstyled mb-0">
                   <!-- <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">$250</span></li> -->
                   <li class="border-bottom my-2"></li>
-                  <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span><?php echo $precio ?> €</span></li>
+                  <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong>
+                    <span class="cart-total"><?php echo $precio ?> €</span>
+                  </li>
                   <li>
                     <form action="#">
-                      <div class="input-group mb-0">
+                      <div class="mb-0">
                         <input class="form-control mb-1" type="text" placeholder="Enter your coupon">
                         <button class="btn btn-dark btn-sm w-100" type="submit"> <i class="fas fa-gift me-2"></i>Apply coupon</button>
                       </div>
@@ -232,25 +237,7 @@ $precio = $precio_total[0]["total"];
     </footer>
     <!-- JS -->
     <?php include '../../config/MainJs.php'; ?>
-    <script>
-      // ------------------------------------------------------- //
-      //   Inject SVG Sprite - 
-      //   see more here 
-      //   https://css-tricks.com/ajaxing-svg-sprite/
-      // ------------------------------------------------------ //
-      function injectSvgSprite(path) {
 
-        var ajax = new XMLHttpRequest();
-        ajax.open(" GET", path, true);
-        ajax.send();
-        ajax.onload = function(e) {
-          var div = document.createElement("div");
-          div.className = 'd-none';
-          div.innerHTML = ajax.responseText;
-          document.body.insertBefore(div, document.body.childNodes[0]);
-        }
-      } // this is set to BootstrapTemple website as you cannot // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path) // while using file:// protocol // pls don't forget to change to your domain :) injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
-    </script>
     <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   </div>

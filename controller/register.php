@@ -13,4 +13,9 @@ switch ($_GET["op"]) {
 
         $usu->insertarUsu($usu_nom, $usu_correo, $usu_contra);
         break;
+
+    case "verifyUser":
+        $usu_correo = $_POST["email"];
+        $usu->verifyUser($usu_correo);
+        break;
 }

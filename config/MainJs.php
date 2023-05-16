@@ -1,40 +1,34 @@
 <!-- JavaScript files-->
-<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                     echo '../../';
                 } else {
                     echo '../';
                 }
                 ?>public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                     echo '../../';
                 } else {
                     echo '../';
                 }
                 ?>public/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                     echo '../../';
                 } else {
                     echo '../';
                 }
                 ?>public/vendor/nouislider/nouislider.min.js"></script>
-<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                     echo '../../';
                 } else {
                     echo '../';
                 }
                 ?>public/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                     echo '../../';
                 } else {
                     echo '../';
                 }
                 ?>public/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
-<script src="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
-                    echo '../../';
-                } else {
-                    echo '../';
-                }
-                ?>public/js/front.js"></script>
 
 
 <!-- Jquery -->

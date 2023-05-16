@@ -11,6 +11,9 @@ require_once '../models/Usuario.php';
 // Crear una instancia de la clase Productos
 $productos = new Productos();
 
+
+
+$filtro = $_GET['filtro'] ?? null;
 // Obtener el número de la página actual
 $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
@@ -18,14 +21,14 @@ $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 $start = ($pagina_actual - 1) * 9;
 
 // Obtener los datos de los productos
-$resultado = $productos->listarProductosPorPaginas($start);
-
+$resultado = $productos->listarProductosPorPaginasFiltro($start, $filtro);
+/* $resultado = $productos->listarProductosPorPaginasFiltrados($start, $elementos_por_pagina, $filtro); */
 
 // Definir la cantidad de elementos por página
 $elementos_por_pagina = 9;
 
 // Calcular el número total de páginas
-$total_registros = $productos->pagination()[0]['total'];
+$total_registros = $productos->pagination($filtro)[0]['total'];
 //número total por páginas 
 $total_paginas = ceil($total_registros / $elementos_por_pagina);
 // página actual,
@@ -33,8 +36,11 @@ $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 // offset 
 $offset = ($pagina_actual - 1) * $elementos_por_pagina;
 //obtener resultado
-$productos = $productos->limit_produc($offset, $elementos_por_pagina);
-
+$productos = $productos->limit_produc($offset, $elementos_por_pagina, $filtro);
+/* $total_registros = $productos->paginationFiltrada($filtro)[0]['total'];
+$total_paginas = ceil($total_registros / $elementos_por_pagina);
+$offset = ($pagina_actual - 1) * $elementos_por_pagina;
+$productos = $productos->limit_produc_filtrados($offset, $elementos_por_pagina, $filtro); */
 
 ?>
 
@@ -45,7 +51,7 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
 <body>
     <div class="page-holder">
         <?php include '../config/MainHeader.php'; ?>
-        <div class="modal fade" id="productView" tabindex="-1">
+        <!-- <div class="modal fade" id="productView" tabindex="-1">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content overflow-hidden border-0">
                     <button class="btn-close p-4 position-absolute top-0 end-0 z-index-20 shadow-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -75,14 +81,15 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                                             </div>
                                         </div>
                                         <div class="col-sm-5"><a class="btn btn-dark btn-sm w-100 h-100 d-flex align-items-center justify-content-center px-0" href="cart.html">Add to cart</a></div>
-                                    </div><a class="btn btn-link text-dark text-decoration-none p-0" href="#!"><i class="far fa-heart me-2"></i>Add to wish list</a>
+                                    </div>
+                                    <a class="btn btn-link text-dark text-decoration-none p-0" href="#!"><i class="far fa-heart me-2"></i>Add to wish list</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="container">
             <!-- HERO SECTION-->
             <section class="py-5 bg-light">
@@ -94,7 +101,7 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                         <div class="col-lg-6 text-lg-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
-                                    <li class="breadcrumb-item"><a class="text-dark" href="index.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a class="text-dark" href="/">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">shop</li>
                                 </ol>
                             </nav>
@@ -108,14 +115,12 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                         <!-- SHOP SIDEBAR-->
                         <div class="col-lg-3 order-2 order-lg-1">
                             <h5 class="text-uppercase mb-4">Categories</h5>
-                            <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase fw-bold">Fashion &amp; Acc</strong></div>
+                            <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase fw-bold">Fashion &amp; Sneakers</strong></div>
                             <ul class="list-unstyled small text-muted ps-lg-4 font-weight-normal">
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Women's T-Shirts</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Men's T-Shirts</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Dresses</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Novelty socks</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Women's sunglasses</a></li>
-                                <li class="mb-2"><a class="reset-anchor" href="#!">Men's sunglasses</a></li>
+                                <li class="mb-2"><a class="reset-anchor" href="#!">Nike</a></li>
+                                <li class="mb-2"><a class="reset-anchor" href="#!">Adidas</a></li>
+                                <li class="mb-2"><a class="reset-anchor" href="#!">Yeezy</a></li>
+                                <li class="mb-2"><a class="reset-anchor" href="#!">Air Jordan</a></li>
                             </ul>
                             <h6 class="text-uppercase mb-4">Price range</h6>
                             <div class="price-range pt-4 mb-5">
@@ -134,11 +139,10 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                                 </div>
                                 <div class="col-lg-6">
                                     <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
-                                        <li class="list-inline-item text-muted me-3"><a class="reset-anchor p-0" href="#!"><i class="fas fa-th-large"></i></a></li>
-                                        <li class="list-inline-item text-muted me-3"><a class="reset-anchor p-0" href="#!"><i class="fas fa-th"></i></a></li>
+                                        <!-- <li class="list-inline-item text-muted me-3"><a class="reset-anchor p-0" href="#!"><i class="fas fa-th-large"></i></a></li>
+                                        <li class="list-inline-item text-muted me-3"><a class="reset-anchor p-0" href="#!"><i class="fas fa-th"></i></a></li> -->
                                         <li class="list-inline-item">
-                                            <select class="selectpicker" data-customclass="form-control form-control-sm">
-                                                <option value>Sort By </option>
+                                            <select class="selectpicker" id="selectpicker" name="selectpicker" data-customclass="form-control form-control-sm">
                                                 <option value="default">Default sorting </option>
                                                 <option value="popularity">Popularity </option>
                                                 <option value="low-high">Price: Low to High </option>
@@ -148,28 +152,30 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                                     </ul>
                                 </div>
                             </div>
-                            <div class="row">
-                                <?php foreach ($resultado as $producto) { ?>
-                                    <div class="col-lg-4 col-sm-6">
-                                        <div class="product text-center">
-                                            <div class="mb-3 position-relative">
-                                                <div class="badge text-white bg-<?php echo $producto['categoria']; ?>"></div>
-                                                <a class="d-block" href="detalle_producto.php?id=<?php echo $producto['id']; ?>">
-                                                    <img class="img-fluid w-100" src="../public/img/<?php echo $producto['imagen']; ?>" alt="<?php echo $producto['nombre']; ?>">
-                                                </a>
-                                                <div class="product-overlay">
-                                                    <ul class="mb-0 list-inline">
-                                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark btn-add-favorites" data-product-id="<?php echo $producto['id']; ?> "><i class="far fa-heart" id="btn-favoritos"></i></a></li>
-                                                        <!-- <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.php?id=<?php echo $producto['id']; ?>" id="add-to-cart-btn">Agregar al carrito</a></li> -->
-                                                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="detalle_producto.php?id=<?php echo $producto['id']; ?>"><i class="fas fa-expand"></i></a></li>
-                                                    </ul>
+                            <div id="tablaProductos">
+                                <div class="row">
+                                    <?php foreach ($resultado as $producto) { ?>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="product text-center">
+                                                <div class="mb-3 position-relative">
+                                                    <div class="badge text-white bg-<?php echo $producto['categoria']; ?>"></div>
+                                                    <a class="d-block" href="detalle_producto.php?id=<?php echo $producto['id']; ?>">
+                                                        <img class="img-fluid w-100" src="../public/img/<?php echo $producto['imagen']; ?>" alt="<?php echo $producto['nombre']; ?>">
+                                                    </a>
+                                                    <div class="product-overlay">
+                                                        <ul class="mb-0 list-inline">
+                                                            <!--  <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark btn-add-favorites" data-product-id="<?php /* echo $producto['id']; */ ?> "><i class="far fa-heart" id="btn-favoritos"></i></a></li> -->
+                                                            <!-- <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.php?id=<?php echo $producto['id']; ?>" id="add-to-cart-btn">Agregar al carrito</a></li> -->
+                                                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="detalle_producto.php?id=<?php echo $producto['id']; ?>"><i class="fas fa-expand"></i></a></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
+                                                <h6><a class="reset-anchor" href="detalle_producto.php?id=<?php echo $producto['id']; ?>"><?php echo $producto['nombre']; ?></a></h6>
+                                                <p class="small text-muted"><?php echo $producto['precio']; ?>€</p>
                                             </div>
-                                            <h6><a class="reset-anchor" href="detalle_producto.php?id=<?php echo $producto['id']; ?>"><?php echo $producto['nombre']; ?></a></h6>
-                                            <p class="small text-muted"><?php echo $producto['precio']; ?>€</p>
                                         </div>
-                                    </div>
-                                <?php } ?>
+                                    <?php } ?>
+                                </div>
                             </div>
 
 
@@ -179,14 +185,14 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
                             echo '<ul class="pagination justify-content-center justify-content-lg-end">';
 
                             if ($pagina_actual > 1) {
-                                echo '<li class="page-item mx-1"><a class="page-link" href="?pagina=' . ($pagina_actual - 1) . '" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
+                                echo '<li class="page-item mx-1"><a class="page-link" href="?pagina=' . ($pagina_actual - 1) . "&&filtro=" . $filtro . '" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
                             }
 
                             for ($i = 1; $i <= $total_paginas; $i++) {
                                 if ($i == $pagina_actual) {
-                                    echo '<li class="page-item mx-1 active"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class="page-item mx-1 active"><a class="page-link" href="?pagina=' . $i . "&&filtro=" . $filtro . '">' . $i . '</a></li>';
                                 } else {
-                                    echo '<li class="page-item mx-1"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class="page-item mx-1"><a class="page-link" href="?pagina=' . $i . "&&filtro=" . $filtro . '">' . $i . '</a></li>';
                                 }
                             }
 
@@ -209,7 +215,7 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
         <!-- JS -->
         <?php include '../config/MainJs.php'; ?>
 
-        <script src="../index.js"></script>
+        <!-- <script src="../index.js"></script> -->
         <script>
             var range = document.getElementById('range');
             noUiSlider.create(range, {
@@ -236,6 +242,7 @@ $productos = $productos->limit_produc($offset, $elementos_por_pagina);
             });
         </script>
     </div>
+    <script src="shop.js"></script>
 </body>
 
 </html>

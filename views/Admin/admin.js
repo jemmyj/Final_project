@@ -35,7 +35,7 @@ $('#admin_table').DataTable({
             footer: true,
             title: 'Acciones',
             filename: 'Acciones',
-            text: '<span class="btn btn-outline-primary custom-btn" data-toggle="tooltip" title="Imprimir PDF"><i class="fas fa-file-pdf"></i></span>',
+            text: '<span class="btn btn-outline-primary custom-btn" data-toggle="tooltip" title="Print PDF"><i class="fas fa-file-pdf"></i></span>',
             exportOptions: {
                 columns: [0, ':visible']
             },
@@ -46,7 +46,7 @@ $('#admin_table').DataTable({
             extend: 'print',
             footer: true,
             filename: 'Export_Acciones',
-            text: '<span class="btn btn-outline-primary custom-btn" data-toggle="tooltip" title="Imprimir"><i class="fas fa-print"></i></span>',
+            text: '<span class="btn btn-outline-primary custom-btn" data-toggle="tooltip" title="Print"><i class="fas fa-print"></i></span>',
             className: 'DataTable'
         },
 
@@ -57,19 +57,19 @@ $('#admin_table').DataTable({
             title: 'Archivo',
             filename: 'Acciones',
 
-            text: '<span  class="btn btn-outline-primary custom-btn" data-toggle="tooltip" title="Exportar EXCEL"><i class="fas fa-file-excel"></i></span>',
+            text: '<span  class="btn btn-outline-primary custom-btn" data-toggle="tooltip" title="Export Excel"><i class="fas fa-file-excel"></i></span>',
             className: 'DataTable'
         },
         {
             extend: 'csvHtml5',
             footer: true,
             filename: 'Export_Acciones',
-            text: '<span class="btn btn-outline-primary custom-btn" data-toggle="tooltip" title="Exportar CSV"><i class="fas fa-file-csv"></i></span>',
+            text: '<span class="btn btn-outline-primary custom-btn" data-toggle="tooltip" title="Export CSV"><i class="fas fa-file-csv"></i></span>',
             className: 'DataTable'
         },
         {
             extend: 'colvis',
-            text: '<span class="btn btn-outline-warning custom-btn" data-toggle="tooltip" title="Ocultar columnas"><i class="fas fa-columns"></i></span>',
+            text: '<span class="btn btn-outline-warning custom-btn" data-toggle="tooltip" title="Hide Columns"><i class="fas fa-columns"></i></span>',
             className: 'DataTable',
             postfixButtons: ['colvisRestore']
         }
@@ -207,7 +207,7 @@ function delete_product(id) {
 
     swal.fire({
         title: 'Delete',
-        text: "¿You wish to delete the product?",
+        text: "Do you wish to delete the product?",
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Yes',
@@ -223,7 +223,7 @@ function delete_product(id) {
 
             swal.fire(
                 'Deleted',
-                'The product was deleted',
+                'The product has been deleted',
                 'success'
             )
         }
@@ -238,7 +238,6 @@ function editarProduct(id) {
     idProduct = $('#id_product').val();
     $.post("../../controller/admin.php?op=obtenerProduct", { id: id }, function (data) {
         var data = JSON.parse(data);
-        console.log(data)
         //Cargar datos
         $('#product-nameE').val(data[0].nombre);
         $('#product-priceE').val(data[0].precio);
@@ -291,18 +290,16 @@ $("#editar-product-form").on("submit", function (e) {
         contentType: false,
         processData: false,
         success: function () {
+            $('#admin_table').DataTable().ajax.reload();
             swal.fire(
                 'Edit',
-                'The product was edited!',
+                'The product has been edited!',
                 'success'
-            ).then(() => {
-                $('#edit_modal').modal('hide');
-                location.reload();
-            })
+            )
+            $('#edit_modal').hide();
+
         } // del success
     }); // del ajax
-
-
 });
 
 $('#descriptionE').summernote({
@@ -313,7 +310,7 @@ $('#descriptionE').summernote({
     lang: 'es-ES', // default: 'en-US'
     toolbar: [
 
-        ['font', ['bold', 'italic', 'underline']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
         ['color', ['color']],
         ['para', ['ul', 'ol']],
         ['insert', ['hr']],
@@ -328,7 +325,7 @@ $('#description').summernote({
     lang: 'es-ES', // default: 'en-US'
     toolbar: [
 
-        ['font', ['bold', 'italic', 'underline']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
         ['color', ['color']],
         ['para', ['ul', 'ol']],
         ['insert', ['hr']]

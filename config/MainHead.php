@@ -7,28 +7,28 @@
 <!-- ======== Page title ============ -->
 <title>SNK&VAN All for you</title>
 <!-- gLightbox gallery-->
-<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                                     echo '../../';
                                 } else {
                                     echo '../';
                                 }
                                 ?>public/vendor/glightbox/css/glightbox.min.css">
 <!-- Range slider-->
-<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                                     echo '../../';
                                 } else {
                                     echo '../';
                                 }
                                 ?>public/vendor/nouislider/nouislider.min.css">
 <!-- Choices CSS-->
-<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                                     echo '../../';
                                 } else {
                                     echo '../';
                                 }
                                 ?>public/vendor/choices.js/public/assets/styles/choices.min.css">
 <!-- Swiper slider-->
-<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                                     echo '../../';
                                 } else {
                                     echo '../';
@@ -39,21 +39,21 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
 
 <!-- theme stylesheet-->
-<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                                     echo '../../';
                                 } else {
                                     echo '../';
                                 }
                                 ?>public/css/style.default.css" id="theme-stylesheet">
 <!-- Custom stylesheet - for your changes-->
-<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<link rel="stylesheet" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                                     echo '../../';
                                 } else {
                                     echo '../';
                                 }
                                 ?>public/css/custom.css">
 <!-- Favicon-->
-<link rel="icon" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+<link rel="icon" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                             echo '../../';
                         } else {
                             echo '../';
@@ -75,3 +75,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">

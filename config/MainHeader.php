@@ -10,7 +10,7 @@ $usuario = new Usuario;
 ?>
 <header class="header bg-white">
     <div class="container px-lg-3">
-        <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" <?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+        <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" <?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
                                                                                                     echo 'href="../../"';
                                                                                                 } else {
                                                                                                     echo 'href="../"';
@@ -20,20 +20,26 @@ $usuario = new Usuario;
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <!-- Link--><a class="nav-link active" <?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
-                                                                    echo 'href="../../"';
-                                                                } else {
-                                                                    echo 'href="../"';
-                                                                }
-                                                                ?>>Home</a>
+                        <!-- Link--><a class='nav-link <?php if ($_SERVER['REQUEST_URI'] == "/") {
+                                                            echo 'active';
+                                                        }
+                                                        ?>' <?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
+                                                                echo 'href="../../"';
+                                                            } else {
+                                                                echo 'href="../"';
+                                                            }
+                                                            ?>>Home</a>
                     </li>
                     <li class="nav-item">
-                        <!-- Link--><a class="nav-link" <?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
-                                                            echo 'href="../../views/shop.php"';
-                                                        } else {
-                                                            echo 'href="../views/shop.php"';
+                        <!-- Link--><a class='nav-link <?php if (strpos($_SERVER['REQUEST_URI'], "shop.php") !== false || strpos($_SERVER['REQUEST_URI'], "detalle_producto.php") !== false) {
+                                                            echo 'active';
                                                         }
-                                                        ?>>Shop</a>
+                                                        ?>' <?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
+                                                                echo 'href="../../views/shop.php?pagina=1"';
+                                                            } else {
+                                                                echo 'href="../views/shop.php?pagina=1"';
+                                                            }
+                                                            ?>>Shop</a>
                     </li>
                     <!-- Link-->
                     <!--  <li class="nav-item">
@@ -48,29 +54,39 @@ $usuario = new Usuario;
                     <li class="nav-item"><a class="nav-link" href="#!"> <i class="far fa-heart me-1"></i><small class="text-gray fw-normal"> (0)</small></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.php"> <i class="fas fa-user me-1 text-gray fw-normal"></i>Login</a></li> -->
                     <?php if ($logged_in) : ?>
-                        <li class="nav-item"><a class="nav-link" href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/") {
-                                                                            echo '../../';
-                                                                        } else {
-                                                                            echo '../';
-                                                                        }
-                                                                        ?>views/Cart"> <i class="fas fa-dolly-flatbed me-1 text-gray"></i>Cart<small class="text-gray fw-normal">(<?php if ($_SERVER['REQUEST_URI'] == "/index.php") {
-                                                                                                                                                                                        require_once "./models/Productos.php";
-                                                                                                                                                                                    } else if ($_SERVER['REQUEST_URI'] == "/views/Cart" || $_SERVER['REQUEST_URI'] == "/views/Admin/") {
-                                                                                                                                                                                        require_once "../../models/Productos.php";
-                                                                                                                                                                                    } else if ($_SERVER['REQUEST_URI'] == "/index.php" || $_SERVER['REQUEST_URI'] == "/") {
-                                                                                                                                                                                        require_once "./models/Productos.php";
-                                                                                                                                                                                    } else {
-                                                                                                                                                                                        require_once "../models/Productos.php";
-                                                                                                                                                                                    }
-                                                                                                                                                                                    $products = new Productos;
-                                                                                                                                                                                    $total = $products->total_cantidad();
-                                                                                                                                                                                    $total_cantidad = $total[0]["total_cantidad"];
-                                                                                                                                                                                    echo $total_cantidad; ?>)</small></a></li>
-                        <input type="hidden" id="valor_likes" value="<?php echo $usuario->getLikes($_SESSION["usu_id"])['likes']  ?>">
-                        <li class="nav-item"><a class="nav-link" href="#!"> <i class="far fa-heart me-1 text-gray"></i>Favorites<small id="num-favoritos" class="text-gray fw-normal"><?php echo '( ' . $usuario->getLikes($_SESSION["usu_id"])['likes'] . ' )'  ?></small></a></li>
+                        <li class="nav-item"><a class='nav-link <?php if (strpos($_SERVER['REQUEST_URI'], "Cart") !== false) {
+                                                                    echo 'active';
+                                                                }
+                                                                ?>' href="<?php if ($_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
+                                                                                echo '../../';
+                                                                            } else {
+                                                                                echo '../';
+                                                                            }
+                                                                            ?>views/Cart"> <i class="fas fa-dolly-flatbed me-1 text-gray"></i>Cart<small class="text-gray fw-normal">(<?php if ($_SERVER['REQUEST_URI'] == "/") {
+                                                                                                                                                                                    require_once "./models/Productos.php";
+                                                                                                                                                                                } else if ($_SERVER['REQUEST_URI'] == "/views/Cart" || $_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
+                                                                                                                                                                                    require_once "../../models/Productos.php";
+                                                                                                                                                                                } else if ($_SERVER['REQUEST_URI'] == "/index.php" || $_SERVER['REQUEST_URI'] == "/") {
+                                                                                                                                                                                    require_once "./models/Productos.php";
+                                                                                                                                                                                } else {
+                                                                                                                                                                                    require_once "../models/Productos.php";
+                                                                                                                                                                                }
+                                                                                                                                                                                $products = new Productos;
+                                                                                                                                                                                $total = $products->total_cantidad($_SESSION["usu_id"]);
+                                                                                                                                                                                $total_cantidad = $total[0]["total_cantidad"];
+                                                                                                                                                                                if ($total_cantidad == null) {
+                                                                                                                                                                                    echo 0;
+                                                                                                                                                                                } else {
+                                                                                                                                                                                    echo $total_cantidad;
+                                                                                                                                                                                } ?>)</small></a></li><!-- echo $usuario->getLikes($_SESSION["usu_id"])[' likes'] -->
+                        <!-- <input type="hidden" id="valor_likes" value="<?php ?>">
+                        <li class="nav-item"><a class="nav-link" href="#!"> <i class="far fa-heart me-1 text-gray"></i>Favorites<small id="num-favoritos" class="text-gray fw-normal"></small></a></li> -->
                         <!-- <li class="nav-item"><a class="nav-link" href="perfil.php"> <i class="fas fa-user me-1 text-gray fw-normal"></i>My account</a></li> -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="../views/perfil.php" id="navbarDropdown" role="button">
+                            <a class='nav-link <?php if (strpos($_SERVER['REQUEST_URI'], "perfil.php") !== false) {
+                                                    echo 'active';
+                                                }
+                                                ?>' href="../views/perfil.php" id="navbarDropdown" role="button">
                                 <i class="fas fa-user-circle me-1 text-gray fw-normal"></i>My account
                             </a>
                         </li>
@@ -81,7 +97,10 @@ $usuario = new Usuario;
                         </li>
 
                     <?php else : ?>
-                        <li class="nav-item"><a class="nav-link" href="../login.php"> <i class="fas fa-user-circle me-1 text-gray fw-normal"></i>Login</a></li>
+                        <li class="nav-item "><a class='nav-link <?php if (strpos($_SERVER['REQUEST_URI'], "login.php") !== false) {
+                                                                        echo 'active';
+                                                                    }
+                                                                    ?>' href="../login.php"> <i class="fas fa-user-circle me-1 text-gray fw-normal"></i>Login</a></li>
                     <?php endif; ?>
                 </ul>
             </div>

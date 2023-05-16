@@ -95,3 +95,9 @@ body {
   text-overflow: ellipsis !important;
   max-width: 150px !important; /* ajusta el ancho máximo según tus necesidades */
 }
+
+/* quitar flecha */
+.note-btn-group .dropdown-toggle {
+  display: none;
+}
+

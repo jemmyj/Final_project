@@ -1,4 +1,4 @@
-<div class="container py-4">
+<div class="container py-4 ">
     <div class="row py-5">
         <div class="col-md-4 mb-3 mb-md-0 text-center">
             <h6 class="text-uppercase mb-3">Customer services</h6>

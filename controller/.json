@@ -1,1 +1,0 @@
-"UPDATE `productos` SET `nombre` = 'Adidas 2',`descripcion`='Hola',`precio` ='130.00', `codigo` ='DHFGH', `imagen` ='',`categoria` ='asdasd', `actualizado_en` = now() WHERE `id` = '3'"

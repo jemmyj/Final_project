@@ -1,7 +1,7 @@
 function editar() {
 
     $("#nombre, #email, #contrasena").removeAttr('disabled');
-    $("#perfil_title").text("Ya puedes editar");
+    $("#perfil_title").text("You can edit now");
     $("#Editar,#admin").addClass("d-none");
     $("#Guardar").removeClass("d-none");
     $("#cancelar").removeClass("d-none");
@@ -31,18 +31,18 @@ $("#perfil").on("submit", function (e) {
         success: function (response) {
             if (response == '') {
                 swal.fire(
-                    'Editado',
-                    'Se ha editado tu perfil de usuario',
+                    'Edited',
+                    'Your user profile has been edited',
                     'success'
                 )
                 $("#nombre, #email, #contrasena").attr("disabled", true);
-                $("#perfil_title").text("Pulse editar para cambiar información");
+                $("#perfil_title").text("Click edit to change information");
                 $("#Editar,#admin").removeClass("d-none");
                 $("#Guardar, #cancelar").addClass("d-none");
             } else {
                 swal.fire(
                     'Error',
-                    'No se pudo editar tu perfil de usuario',
+                    'Failed to edit your user profile',
                     'error'
                 )
             }

@@ -102,7 +102,7 @@ $resultado = $usuarios->getUser($id_usuario);
                         <div class="col-lg-6 text-lg-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
-                                    <li class="breadcrumb-item"><a class="text-dark" href="../index.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a class="text-dark" href="../">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">My account</li>
                                 </ol>
                             </nav>
@@ -112,20 +112,20 @@ $resultado = $usuarios->getUser($id_usuario);
             </section>
             <div class="form-container">
                 <form id="perfil" action="login.php" method="POST">
-                    <h2 id="perfil_title">Pulse editar para cambiar información</h2>
+                    <h2 id="perfil_title">Click Edit to change information</h2>
                     <br>
-                    <label for="nombre">Nombre:</label>
+                    <label for="nombre">Name:</label>
                     <input type="text" id="nombre" name="nombre" value="<?php echo $resultado['nombre']; ?>" disabled><br><br>
-                    <label for="correo">Correo electrónico:</label>
+                    <label for="correo">Email:</label>
                     <input type="email" id="email" name="email" value="<?php echo $resultado['correo']; ?>" disabled><br><br>
-                    <label for="contrasena">Contraseña:</label>
+                    <label for="contrasena">Password:</label>
                     <input type="password" id="contrasena" name="contrasena" value="<?php echo $resultado['contrasena']; ?>" disabled><br><br>
                     <input type="button" onclick="cancelarEdit()" class="d-none" name="cancelar" id="cancelar" value="Cancelar">
                     <a href="/views/Admin/"> <input type="button" class="<?php if ($rol == 0) {
                                                                                 echo "d-none";
-                                                                            } ?>" name="admin" id="admin" value="Administrar"></a>
-                    <input type="button" onclick="editar()" name="Editar" id="Editar" value="Editar">
-                    <input type="submit" class="d-none" name="Guardar" id="Guardar" value="Guardar cambios">
+                                                                            } ?>" name="admin" id="admin" value="Manage"></a>
+                    <input type="button" onclick="editar()" name="Editar" id="Editar" value="Edit">
+                    <input type="submit" class="d-none" name="Guardar" id="Guardar" value="Save changes">
                 </form>
 
                 <!-- <form action="logout.php" method="POST">
