@@ -27,3 +27,24 @@ $(document).ready(function () {
 
 
 });
+
+/* $("form").submit(function (e) {
+    e.preventDefault();
+    var email = $("#email").val();
+    $.ajax({
+        url: "/mail.php",
+        type: "POST",
+        data: { email: email },
+        success: function (response) {
+            swal.fire(
+                'Newsletter',
+                'Check your email, we just send you a message!',
+                'success'
+            )
+            $('#mail')[0].reset();
+        },
+        error: function (xhr, status, error) {
+            // Manejar errores
+        }
+    });
+}); */

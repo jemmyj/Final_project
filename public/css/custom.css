@@ -63,18 +63,9 @@ input[type="submit"]:hover {
   background-color: #f5f5f5 !important;
 }
 
-.nav-item.dropdown .dropdown-menu form {
+.nav-item.dropdown .dropdown-menu .perfil {
   padding: 10px 20px !important;
   margin: 0 !important;
-}
-
-.nav-item.dropdown .dropdown-menu button {
-  background-color: #dc3545;
-  color: #fff;
-  border: none !important;
-  border-radius: 5px !important;
-  padding: 8px 20px !important;
-  font-size: 14px !important;
 }
 
 .nav-item.dropdown .dropdown-menu button:hover {
@@ -85,12 +76,28 @@ body {
   overflow-x: hidden;
 }
 
-.dropdown-login {
-  margin-right: 10px !important; /* ajusta el valor según tus necesidades */
-  max-height: 200px !important; /* establece una altura fija */
-  overflow-y: auto !important;
-  position: absolute !important;
-  right: 0 !important;
-  left: auto !important;
+/* quitar borde de los botones toolbar */
+.dt-button {
+  border: none !important;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+/* raton encima del detele cart */
+.reset-anchor:hover {
+  cursor: pointer !important;
+}
+
+/* puntos suspensivos a la columna product */
+.product-name {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 150px !important; /* ajusta el ancho máximo según tus necesidades */
+}
+
+/* quitar flecha */
+.note-btn-group .dropdown-toggle {
+  display: none;
 }
 

@@ -1,31 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <?php
-
-
-require_once("models/Usuario.php");
-
-
-
-if (isset($_POST["inicio_sesion"])) {
-    $correo = $_POST["correo"];
-    $contrasena = $_POST["contrasena"];
-
-    $usuario = new Usuario();
-    $resultado = $usuario->login($correo, $contrasena);
-
-    if ($resultado == "1") {
-        header("Location: /"); // Redirigir al usuario a la página de inicio después del inicio de sesión exitoso
-        exit;
-    } else {
-        $mensaje_error = $resultado; // Mostrar mensaje de error al usuario
-    }
-}
+require_once '../../models/Usuario.php';
 ?>
 
 <head>
-    <?php include 'config/MainHead.php'; ?>
+    <?php include '../../config/MainHead.php'; ?>
 </head>
+
 <style>
     form {
         background-color: #ffffff;
@@ -73,29 +56,24 @@ if (isset($_POST["inicio_sesion"])) {
         background-color: #0069d9;
     }
 
-    /* validacion form */
-    .error-message {
-        color: red !important;
-        font-size: 12px;
-        margin-top: 5px;
-    }
+
 </style>
 
 <body>
     <div class="page-holder">
-        <?php include 'config/MainHeader.php'; ?>
+        <?php include '../../config/MainHeader.php'; ?>
         <div class="container">
             <section class="py-5 bg-light">
                 <div class="container">
                     <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
                         <div class="col-lg-6">
-                            <h1 class="h2 text-uppercase mb-0">Login</h1>
+                            <h1 class="h2 text-uppercase mb-0">Register</h1>
                         </div>
                         <div class="col-lg-6 text-lg-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
-                                    <li class="breadcrumb-item"><a class="text-dark" href="/">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Login</li>
+                                    <li class="breadcrumb-item"><a class="text-dark" href="../">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Register</li>
                                 </ol>
                             </nav>
                         </div>
@@ -103,23 +81,30 @@ if (isset($_POST["inicio_sesion"])) {
                 </div>
             </section>
             <!--  Content -->
-            <form action="login.php" method="POST" id="loginForm">
-                <label for="correo">Email:</label>
-                <input type="email" id="correo" name="correo"><br>
-                <label for="contrasena">Password:</label>
-                <input type="password" id="contrasena" name="contrasena"><br>
-                <a href="/views/Registrar">Don't have an account?</a><br><br>
-                <a href="/views/restaurar.php">Forgot your password?</a>
+            <form id="register-form" action="/" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+                <div id="name-error" class="error-message"></div>
                 <br>
-                <input type="submit" id="inicio_sesion" name="inicio_sesion" value="Sign In">
-                <div id="error-message"></div>
+                <label for="correo">Email:</label>
+                <input type="email" id="correo" name="correo">
+                <div id="email-error" class="error-message"></div>
+                <br>
+                <label for="contrasena">Password:</label>
+                <input type="password" id="contrasena" name="contrasena">
+                <div id="password-error" class="error-message"></div><br>
+                <a href="../../login.php">You have account?</a>
+                <br>
+                <input type="submit" name="register" value="Register">
+
             </form>
         </div>
         <footer class="bg-dark text-white">
-            <?php include 'config/MainFooter.php'; ?>
+            <?php include '../../config/MainFooter.php'; ?>
         </footer>
         <!-- JS -->
-        <?php include 'config/MainJs.php'; ?>
+        <?php include '../../config/MainJs.php'; ?>
+
         <script>
             // ------------------------------------------------------- //
             //   Inject SVG Sprite - 
@@ -144,11 +129,13 @@ if (isset($_POST["inicio_sesion"])) {
             // pls don't forget to change to your domain :)
             injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
         </script>
+
         <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    </div>
 
-    <script src="login.js"></script>
+    </div>
+    <script src="/views/Registrar/registrar.js"></script>
+
 </body>
 
 </html>

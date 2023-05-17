@@ -11053,10 +11053,10 @@ button:focus, button:active {
 * ==========================================
 *
 */
-.product-view {
+/* .product-view {
   min-height: 20rem;
 }
-
+ */
 .quantity {
   display: flex;
   align-items: center;
