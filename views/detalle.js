@@ -9,7 +9,7 @@ function insertarToCart(id) {
         dataType: "html",
         success: function (text) {
             // Si la respuesta es exitosa, mostramos el mensaje de éxito al usuario
-            Swal.fire('Añadido al carrito!', '', 'success').then((result) => {
+            Swal.fire('Added to cart!', '', 'success').then((result) => {
                 $('#size-select').val(0);
                 if (result.isConfirmed) {
                     location.reload();

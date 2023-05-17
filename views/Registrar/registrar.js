@@ -59,7 +59,7 @@ $("#register-form").on("submit", function (e) {
                         processData: false,
                         success: function (text) {
                             // Si la respuesta es exitosa, mostramos el mensaje de éxito al usuario
-                            Swal.fire('Registro exitoso!', '', 'success').then((result) => {
+                            Swal.fire('Successful registration!', '', 'success').then((result) => {
                                 if (result.isConfirmed) {
                                     $("#register-form")[0].reset();
 
