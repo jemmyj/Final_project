@@ -10,10 +10,18 @@ function editar() {
 
 function cancelarEdit() {
 
-    $("#nombre, #email, #contrasena").attr("disabled", true);
-    $("#perfil_title").text("Pulse editar para cambiar información");
-    $("#Editar,#admin").removeClass("d-none");
-    $("#Guardar, #cancelar").addClass("d-none");
+    if ($("#rolUsu").val() == 1) {
+        $("#nombre, #email, #contrasena").attr("disabled", true);
+        $("#perfil_title").text("Pulse editar para cambiar información");
+        $("#Editar,#admin").removeClass("d-none");
+        $("#Guardar, #cancelar").addClass("d-none");
+    } else {
+        $("#nombre, #email, #contrasena").attr("disabled", true);
+        $("#perfil_title").text("Pulse editar para cambiar información");
+        $("#Editar").removeClass("d-none");
+        $("#Guardar, #cancelar").addClass("d-none");
+    }
+
 
 }
 
@@ -35,10 +43,18 @@ $("#perfil").on("submit", function (e) {
                     'Your user profile has been edited',
                     'success'
                 )
-                $("#nombre, #email, #contrasena").attr("disabled", true);
-                $("#perfil_title").text("Click edit to change information");
-                $("#Editar,#admin").removeClass("d-none");
-                $("#Guardar, #cancelar").addClass("d-none");
+                if ($("#rolUsu").val() == 1) {
+                    $("#nombre, #email, #contrasena").attr("disabled", true);
+                    $("#perfil_title").text("Click edit to change information");
+                    $("#Editar,#admin").removeClass("d-none");
+                    $("#Guardar, #cancelar").addClass("d-none");
+                } else {
+                    $("#nombre, #email, #contrasena").attr("disabled", true);
+                    $("#perfil_title").text("Click edit to change information");
+                    $("#Editar").removeClass("d-none");
+                    $("#Guardar, #cancelar").addClass("d-none");
+                }
+
             } else {
                 swal.fire(
                     'Error',

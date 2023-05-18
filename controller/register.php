@@ -16,6 +16,6 @@ switch ($_GET["op"]) {
 
     case "verifyUser":
         $usu_correo = $_POST["email"];
-        $usu->verifyUser($usu_correo);
+        $datos = $usu->verifyUser($usu_correo);
         break;
 }

@@ -50,11 +50,39 @@ require_once('../models/Usuario.php');
         }
 
         p.error {
-            color: #ff0000;
-            font-size: 14px;
-            margin-top: 8px;
+            background-color: #ffdddd;
+            border: 1px solid #ff0000;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
+            margin-top: 50px;
+
         }
 
+        .back-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 21.5%;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #007bff;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -96,7 +124,10 @@ require_once('../models/Usuario.php');
                     echo '<input type="submit" name="restablecer" value="Confirm">';
                     echo '</form>';
                 } else {
-                    echo '<p class="error">Lo siento, no se encontró una cuenta asociada con ese correo electrónico. Inténtalo de nuevo.</p>';
+                    echo '<p class="error">I\'m sorry, no account associated with that email address was found. Please try again.</p>';
+                    echo '<div class="back-button-container">';
+                    echo '<a class="back-button" href="/views/restaurar.php">Volver</a> ';
+                    echo '</div>';
                 }
             }
 

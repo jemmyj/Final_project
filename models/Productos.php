@@ -208,7 +208,7 @@ class Productos extends Conectar
         parent::set_names();
         $sql = "DELETE FROM `productos`
                 WHERE
-                    id = $id";
+                    `id` = $id";
 
         $sql = $conectar->prepare($sql);
         $sql->execute();

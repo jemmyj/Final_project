@@ -72,7 +72,7 @@ require_once '../../models/Usuario.php';
                         <div class="col-lg-6 text-lg-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
-                                    <li class="breadcrumb-item"><a class="text-dark" href="../">Home</a></li>
+                                    <li class="breadcrumb-item"><a class="text-dark" href="../login.php">Login</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Register</li>
                                 </ol>
                             </nav>

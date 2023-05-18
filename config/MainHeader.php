@@ -63,22 +63,22 @@ $usuario = new Usuario;
                                                                                 echo '../';
                                                                             }
                                                                             ?>views/Cart"> <i class="fas fa-dolly-flatbed me-1 text-gray"></i>Cart<small class="text-gray fw-normal">(<?php if ($_SERVER['REQUEST_URI'] == "/") {
-                                                                                                                                                                                    require_once "./models/Productos.php";
-                                                                                                                                                                                } else if ($_SERVER['REQUEST_URI'] == "/views/Cart" || $_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
-                                                                                                                                                                                    require_once "../../models/Productos.php";
-                                                                                                                                                                                } else if ($_SERVER['REQUEST_URI'] == "/index.php" || $_SERVER['REQUEST_URI'] == "/") {
-                                                                                                                                                                                    require_once "./models/Productos.php";
-                                                                                                                                                                                } else {
-                                                                                                                                                                                    require_once "../models/Productos.php";
-                                                                                                                                                                                }
-                                                                                                                                                                                $products = new Productos;
-                                                                                                                                                                                $total = $products->total_cantidad($_SESSION["usu_id"]);
-                                                                                                                                                                                $total_cantidad = $total[0]["total_cantidad"];
-                                                                                                                                                                                if ($total_cantidad == null) {
-                                                                                                                                                                                    echo 0;
-                                                                                                                                                                                } else {
-                                                                                                                                                                                    echo $total_cantidad;
-                                                                                                                                                                                } ?>)</small></a></li><!-- echo $usuario->getLikes($_SESSION["usu_id"])[' likes'] -->
+                                                                                                                                                                                            require_once "./models/Productos.php";
+                                                                                                                                                                                        } else if ($_SERVER['REQUEST_URI'] == "/views/Cart" || $_SERVER['REQUEST_URI'] == "/views/Admin/" || $_SERVER['REQUEST_URI'] == "/views/Checkout/") {
+                                                                                                                                                                                            require_once "../../models/Productos.php";
+                                                                                                                                                                                        } else if ($_SERVER['REQUEST_URI'] == "/index.php" || $_SERVER['REQUEST_URI'] == "/") {
+                                                                                                                                                                                            require_once "./models/Productos.php";
+                                                                                                                                                                                        } else {
+                                                                                                                                                                                            require_once "../models/Productos.php";
+                                                                                                                                                                                        }
+                                                                                                                                                                                        $products = new Productos;
+                                                                                                                                                                                        $total = $products->total_cantidad($_SESSION["usu_id"]);
+                                                                                                                                                                                        $total_cantidad = $total[0]["total_cantidad"];
+                                                                                                                                                                                        if ($total_cantidad == null) {
+                                                                                                                                                                                            echo 0;
+                                                                                                                                                                                        } else {
+                                                                                                                                                                                            echo $total_cantidad;
+                                                                                                                                                                                        } ?>)</small></a></li><!-- echo $usuario->getLikes($_SESSION["usu_id"])[' likes'] -->
                         <!-- <input type="hidden" id="valor_likes" value="<?php ?>">
                         <li class="nav-item"><a class="nav-link" href="#!"> <i class="far fa-heart me-1 text-gray"></i>Favorites<small id="num-favoritos" class="text-gray fw-normal"></small></a></li> -->
                         <!-- <li class="nav-item"><a class="nav-link" href="perfil.php"> <i class="fas fa-user me-1 text-gray fw-normal"></i>My account</a></li> -->
@@ -86,13 +86,13 @@ $usuario = new Usuario;
                             <a class='nav-link <?php if (strpos($_SERVER['REQUEST_URI'], "perfil.php") !== false) {
                                                     echo 'active';
                                                 }
-                                                ?>' href="../views/perfil.php" id="navbarDropdown" role="button">
+                                                ?>' href="../../views/perfil.php" id="navbarDropdown" role="button">
                                 <i class="fas fa-user-circle me-1 text-gray fw-normal"></i>My account
                             </a>
                         </li>
                         <li>
-                            <form action="../logout.php " method="POST">
-                                <button type="submit" name="logout" class="dropdown-item"><i class="fa-solid fa-power-off" style="color:red;"></i></button>
+                            <form action="../../logout.php " method="POST">
+                                <button type="submit" name="logout" class="dropdown-item" title="Logout"><i class="fa-solid fa-power-off" style="color:red;"></i></button>
                             </form>
                         </li>
 

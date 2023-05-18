@@ -37,45 +37,47 @@ $("#register-form").on("submit", function (e) {
     // Si todos los campos son válidos, realizar la solicitud AJAX
     if (isValidName && isValidEmail && isValidPassword) {
         // Verificar si el correo ya está registrado
-        $.ajax({
+        /* $.ajax({
             url: "../../controller/register.php?op=verifyUser",
             type: "POST",
             data: { email: email },
             success: function (response) {
+                console.log(response)
                 if (response !== null) {
                     // El correo ya está registrado
                     $("#email-error").text("Email is already registered.");
-                } else {
-                    // El correo no está registrado, realizar la solicitud de registro
-                    var formData = new FormData($("#register-form")[0]);
+                } else { */
+        // El correo no está registrado, realizar la solicitud de registro
+        var formData = new FormData($("#register-form")[0]);
 
-                    // Meto los ficheros para que se vayan con el FORM DATA
+        // Meto los ficheros para que se vayan con el FORM DATA
 
-                    $.ajax({
-                        url: "../../controller/register.php?op=registrar",
-                        type: "POST",
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: function (text) {
-                            // Si la respuesta es exitosa, mostramos el mensaje de éxito al usuario
-                            Swal.fire('Successful registration!', '', 'success').then((result) => {
-                                if (result.isConfirmed) {
-                                    $("#register-form")[0].reset();
+        $.ajax({
+            url: "../../controller/register.php?op=registrar",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (text) {
+                // Si la respuesta es exitosa, mostramos el mensaje de éxito al usuario
+                Swal.fire('Successful registration!', '', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        $("#register-form")[0].reset();
 
-                                    $.post("../login.php", {
-                                        email: formData.get("email"),
-                                        password: formData.get("password")
-                                    })
+                        $.post("../login.php", {
+                            email: formData.get("email"),
+                            password: formData.get("password")
+                        })
 
-                                    // Redirigir al usuario a login.php
-                                    window.location.href = "../login.php";
-                                }
-                            });
-                        }// del success
-                    }); // del ajax
-                }
-            }
-        });
+                        // Redirigir al usuario a login.php
+                        window.location.href = "../login.php";
+                    }
+                });
+            }// del success
+        }); // del ajax
     }
+})
+ /*        });
+   }
 });
+*/

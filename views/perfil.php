@@ -111,7 +111,9 @@ $resultado = $usuarios->getUser($id_usuario);
                 </div>
             </section>
             <div class="form-container">
+                
                 <form id="perfil" action="login.php" method="POST">
+                    <input type="hidden" id="rolUsu" name="rolUsu" value="<?php echo $_SESSION["usu_rol"] ?>">
                     <h2 id="perfil_title">Click Edit to change information</h2>
                     <br>
                     <label for="nombre">Name:</label>
